@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/shopware/5.3/engine/Shopware/Components/Plugin/schema/plugin.xsd">
+
+    <label lang="en">emerchantpay Payment</label>
+    <label lang="de">emerchantpay Payment</label>
+
+    <version>1.0.0</version>
+    <copyright>(c) emerchantpay Ltd.</copyright>
+    <license>GNU</license>
+    <link>https://www.emerchantpay.com</link>
+    <author>emerchantpay Ltd.</author>
+    <compatibility minVersion="5.6"/>
+
+    <description lang="en">
+        <![CDATA[
+        <p>
+            Payment Module for <b>Shopware 5</b>, that gives you the ability to process payments through <b>emerchantpay's Payment Gateway - Genesis</b>.
+        </p>
+        </br>
+        <p>
+            Contains Following Payment Methods:
+            <ul>
+                <li><b>emerchantpay Checkout</b></li>
+                <li><b>emerchantpay Direct</b></li>
+            </ul>
+        </p>
+        </br>
+        <table style="border-spacing=10px">
+            <tr>
+                <td><b>Contact us</b>:&nbsp;</td>
+                <td><a style="color: #0000ff !important" href="mailto:tech-support@emerchantpay.com">tech-support@emerchantpay.com</a></td>
+            </tr>
+            <tr>
+                <td><b>Website</b>:&nbsp;</td>
+                <td><a style="color: #0000ff !important" href="https://emerchantpay.com" target="_blank">www.emerchantpay.com</a></td>
+            </tr>
+        </table>
+        ]]>
+    </description>
+    <description lang="de">
+        <![CDATA[
+        <p>
+            Payment Module for <b>Shopware 5</b>, that gives you the ability to process payments through <b>emerchantpay's Payment Gateway - Genesis</b>.
+        </p>
+        </br>
+        <p>
+            Contains Following Payment Methods:
+            <ul>
+                <li><b>emerchantpay Checkout</b></li>
+                <li><b>emerchantpay Direct</b></li>
+            </ul>
+        </p>
+        </br>
+        <table style="border-spacing=10px">
+            <tr>
+                <td><b>Contact us</b>:&nbsp;</td>
+                <td><a style="color: #0000ff !important" href="mailto:tech-support@emerchantpay.com">tech-support@emerchantpay.com</a></td>
+            </tr>
+            <tr>
+                <td><b>Website</b>:&nbsp;</td>
+                <td><a style="color: #0000ff !important" href="https://emerchantpay.com" target="_blank">www.emerchantpay.com</a></td>
+            </tr>
+        </table>
+        ]]>
+    </description>
+
+    <changelog version="1.0.0">
+        <changes lang="en">
+            <![CDATA[
+            <p><b>Initial version</b></p>
+            <p><b>Features</b>:</p>
+            <div><ul>
+                <li>- Added Initial <b>emerchantpay Plugin</b> Structure</li>
+                <li>- Added Configurations for <b>Direct</b> and <b>Checkout</b> Methods</li>
+                <li>- Added <b>GenesisPHP SDK</b> library</li>
+                <li>- Added <b>Genesis SDK</b> Service</li>
+                <li>- Added <b>Plugin</b> Logging Service</li>
+                <li>- Added <b>Checkout</b> and <b>Direct</b> Database Tables</li>
+                <li>- Added custom Front End <b>Error Page</b> Controller</li>
+                <li>- Added <b>Payment Data</b> Handler</li>
+                <li>- Added <b>Checkout</b> Payment</li>
+                <li>- Added <b>Direct</b> Payment</li>
+                <li>- Added <b>Return URLs</b> Controller and functionality</li>
+                <li>- Added functionality for storing the payment transactions' database records</li>
+                <li>- Added Genesis <b>Notification</b> handler</li>
+                <li>- Added decoration to the <b>Order Details</b> view</li>
+                <li>- Added <b>Reference</b> transaction functionality</li>
+            </ul></div>
+            ]]>
+        </changes>
+        <changes lang="de">
+            <![CDATA[
+            <p><b>Initial version</b></p>
+            <p><b>Features</b>:</p>
+            <div><ul>
+                <li>- Added Initial <b>emerchantpay Plugin</b> Structure</li>
+                <li>- Added Configurations for <b>Direct</b> and <b>Checkout</b> Methods</li>
+                <li>- Added <b>GenesisPHP SDK</b> library</li>
+                <li>- Added <b>Genesis SDK</b> Service</li>
+                <li>- Added <b>Plugin</b> Logging Service</li>
+                <li>- Added <b>Checkout</b> and <b>Direct</b> Database Tables</li>
+                <li>- Added custom Front End <b>Error Page</b> Controller</li>
+                <li>- Added <b>Payment Data</b> Handler</li>
+                <li>- Added <b>Checkout</b> Payment</li>
+                <li>- Added <b>Direct</b> Payment</li>
+                <li>- Added <b>Return URLs</b> Controller and functionality</li>
+                <li>- Added functionality for storing the payment transactions' database records</li>
+                <li>- Added Genesis <b>Notification</b> handler</li>
+                <li>- Added decoration to the <b>Order Details</b> view</li>
+                <li>- Added <b>Reference</b> transaction functionality</li>
+            </ul></div>
+            ]]>
+        </changes>
+    </changelog>
+</plugin>

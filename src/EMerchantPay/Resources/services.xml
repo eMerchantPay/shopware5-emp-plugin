@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+    <services>
+
+        <service id="emerchantpay.subscriber.emerchantpay_resource_subscriber"
+                 class="EMerchantPay\Subscribers\ResourceSubscriber">
+            <argument>%e_merchant_pay.plugin_dir%</argument>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+
+        <service id="emerchantpay.plugin_logger_service"
+                 class="EMerchantPay\Components\Services\EmerchantpayLogger">
+            <argument type="service" id="e_merchant_pay.logger"/>
+            <argument type="service" id="emerchantpay.transform_credit_card_data" />
+        </service>
+
+        <service id="emerchantpay.genesis_checkout_service"
+                 class="EMerchantPay\Components\Methods\CheckoutService">
+            <argument type="service" id="emerchantpay.plugin_config_service"/>
+            <argument>%e_merchant_pay.plugin_name%</argument>
+            <argument type="service" id="emerchantpay.plugin_logger_service"/>
+            <argument type="service" id="models"/>
+        </service>
+
+        <service id="emerchantpay.genesis_direct_service"
+                 class="EMerchantPay\Components\Methods\DirectService">
+            <argument type="service" id="emerchantpay.plugin_config_service"/>
+            <argument>%e_merchant_pay.plugin_name%</argument>
+            <argument type="service" id="emerchantpay.plugin_logger_service"/>
+            <argument type="service" id="models" />
+        </service>
+
+        <service id="emerchantpay.shopware_helper_service"
+                 class="EMerchantPay\Components\Services\ShopwareHelper">
+        </service>
+
+        <service id="emerchantpay.subscribers.emerchantpay_order_transactions"
+                 class="EMerchantPay\Subscribers\EmerchantpayOrderTransactions">
+            <argument>%e_merchant_pay.plugin_dir%</argument>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+
+        <service id="emerchantpay.subscribers.emerchantpay_payment_methods"
+                 class="EMerchantPay\Subscribers\EmerchantpayPaymentMethods">
+            <argument>%e_merchant_pay.plugin_dir%</argument>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+
+        <service id="emerchantpay.plugin_config_service"
+                 class="EMerchantPay\Components\Services\EmerchantpayConfig">
+            <argument>%e_merchant_pay.plugin_name%</argument>
+            <argument type="service" id="emerchantpay.plugin_logger_service"/>
+            <argument type="service" id="models" />
+        </service>
+
+        <service id="emerchantpay.transform_credit_card_data"
+                 class="EMerchantPay\Components\Services\TransformCreditCardData">
+        </service>
+
+    </services>
+</container>

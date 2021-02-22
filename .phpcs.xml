@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<ruleset name="Shopware5-EMP">
+    <description>Generally-applicable sniffs for Shopware EMP Plugin</description>
+
+    <rule ref="PSR2" />
+
+    <rule ref="PSR1.Methods.CamelCapsMethodName.NotCamelCaps">
+        <exclude-patern>*/Controllers/*</exclude-patern>
+    </rule>
+    <rule ref="PSR1.Classes.ClassDeclaration.MissingNamespace">
+        <exclude-patern>*/Controllers/*</exclude-patern>
+    </rule>
+    <exclude-pattern>*/Libraries/*</exclude-pattern>
+</ruleset>
