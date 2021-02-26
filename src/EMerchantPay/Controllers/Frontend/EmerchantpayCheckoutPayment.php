@@ -62,6 +62,8 @@ class Shopware_Controllers_Frontend_EmerchantpayCheckoutPayment extends Frontend
             /** @var \EMerchantPay\Components\Methods\CheckoutService $sdkService */
             $sdkService = $this->container->get('emerchantpay.genesis_checkout_service');
             $sdkService->loadShopwareShop($this->container->get('shop'));
+            $sdkService->setShopwareUserId($this->getShopwareUserId());
+            $sdkService->setShopwareCustomerNumber($this->getShopwareCustomerNumber());
 
             $genesis = $sdkService->setGenesisRequestProperties($paymentData);
             $genesis->execute();

@@ -57,7 +57,7 @@ class Methods extends ModelEntity
     /**
      * @var string $optionValues
      *
-     * @ORM\Column(type="string", nullable=true)
+     * @ORM\Column(type="text", nullable=true)
      */
     protected $optionValues;
 
@@ -107,6 +107,10 @@ class Methods extends ModelEntity
     {
         if (empty($this->options)) {
             throw new Exception('Set Option first before its value');
+        }
+
+        if (is_string($value)) {
+            $value = trim($value);
         }
 
         $this->optionValues = $value;

@@ -113,4 +113,32 @@ class FrontendPaymentAction extends Shopware_Controllers_Frontend_Payment
     {
         return $this->Request()->getParam('action');
     }
+
+    /**
+     * Get the logged Shopware User Id
+     *
+     * @return integer|null
+     */
+    protected function getShopwareUserId()
+    {
+        if (($user = $this->getUser()) !== null && !empty($user['additional']['user']['id'])) {
+            return $user['additional']['user']['id'];
+        }
+
+        return null;
+    }
+
+    /**
+     * Get the loggged Shopware Customer Number
+     *
+     * @return integer|null
+     */
+    protected function getShopwareCustomerNumber()
+    {
+        if (($user = $this->getUser()) !== null && !empty($user['additional']['user']['customernumber'])) {
+            return $user['additional']['user']['customernumber'];
+        }
+
+        return null;
+    }
 }

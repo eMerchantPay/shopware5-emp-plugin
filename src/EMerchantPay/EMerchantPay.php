@@ -91,6 +91,10 @@ class EMerchantPay extends Plugin
     {
         $this->setActiveFlag($context->getPlugin()->getPayments(), false);
 
+        if (false === $context->keepUserData()) {
+            $this->removeDatabase();
+        }
+
         $context->scheduleClearCache(InstallContext::CACHE_LIST_ALL);
     }
 
@@ -143,6 +147,19 @@ class EMerchantPay extends Plugin
         $classes = $this->getClasses($modelManager);
 
         $tool->updateSchema($classes, true);
+    }
+
+    /**
+     * Remove Plug-in Tables
+     */
+    private function removeDatabase()
+    {
+        $modelManager = $this->container->get('models');
+        $tool = new SchemaTool($modelManager);
+
+        $classes = $this->getClasses($modelManager);
+
+        $tool->dropSchema($classes);
     }
 
     /**

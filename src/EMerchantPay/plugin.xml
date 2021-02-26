@@ -5,7 +5,7 @@
     <label lang="en">emerchantpay Payment</label>
     <label lang="de">emerchantpay Payment</label>
 
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <copyright>(c) emerchantpay Ltd.</copyright>
     <license>GNU</license>
     <link>https://www.emerchantpay.com</link>
@@ -64,6 +64,37 @@
         </table>
         ]]>
     </description>
+
+    <changelog version="1.0.1">
+        <changes lang="en">
+            <![CDATA[
+            <p><b>Features</b>:</p>
+            <div><ul>
+                <li>- Added new transaction type <b>Post Finance</b> available in the <b>emerchantpay Checkout Method</b></li>
+                <li>- Allowed reference action Void for the following transaction types:
+                    <ul>
+                        <li>&emsp;<b>Sale</b></li>
+                        <li>&emsp;<b>Sale (3D-Secure)</b></li>
+                    </ul>
+                </li>
+                <li>- Added Plugin data removal upon uninstall</li>
+                <li>- Added mechanic for execution of the following transaction types:
+                    <ul>
+                        <li>&emsp;<b>Trustly Sale</b></li>
+                        <li>&emsp;<b>InstaDebit Payin</b></li>
+                        <li>&emsp;<b>iDebit Payin</b></li>
+                    </ul>
+                </li>
+            </ul></div>
+            </br>
+            <p><b>Fixes</b>:</p>
+            <div><ul>
+                <li>- Fixed Plugin Config Methods Database Schema</li>
+                <li>- Fixed the transaction ID generation</li>
+            </ul></div>
+            ]]>
+        </changes>
+    </changelog>
 
     <changelog version="1.0.0">
         <changes lang="en">

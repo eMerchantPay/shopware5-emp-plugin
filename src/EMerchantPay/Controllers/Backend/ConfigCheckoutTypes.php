@@ -18,6 +18,7 @@
  */
 
 use EMerchantPay\Components\Base\SdkService;
+use EMerchantPay\Components\Services\EmerchantpayConfig;
 use Genesis\API\Constants\Transaction\Names;
 use \Genesis\API\Constants\Transaction\Types as GenesisTransactionTypes;
 use \Genesis\API\Constants\Payment\Methods as GenesisPaymentMethods;
@@ -27,11 +28,6 @@ use \Genesis\API\Constants\Payment\Methods as GenesisPaymentMethods;
  */
 class Shopware_Controllers_Backend_ConfigCheckoutTypes extends Shopware_Controllers_Backend_ExtJs
 {
-    /**
-     * PPRO transaction suffix
-     */
-    const PPRO_TRANSACTION_SUFFIX = '_ppro';
-
     /**
      * Endpoint for retrieving the available Checkout transaction types via Ajax
      */
@@ -51,7 +47,7 @@ class Shopware_Controllers_Backend_ConfigCheckoutTypes extends Shopware_Controll
         // Add PPRO types
         $pproTypes = array_map(
             function ($type) {
-                return $type . self::PPRO_TRANSACTION_SUFFIX;
+                return $type . EmerchantpayConfig::PPRO_TRANSACTION_SUFFIX;
             },
             GenesisPaymentMethods::getMethods()
         );

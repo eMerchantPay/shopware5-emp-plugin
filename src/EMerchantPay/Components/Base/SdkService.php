@@ -41,6 +41,8 @@ use Shopware\Models\Shop\DetachedShop;
  *
  * Class SdkService
  * @package EMerchantPay\Components\Base
+ *
+ * @SuppressWarnings(PHPMD.LongVariable)
  */
 abstract class SdkService
 {
@@ -97,6 +99,20 @@ abstract class SdkService
 
     /** @var DetachedShop $shopwareShop */
     protected $shopwareShop;
+
+    /**
+     * The logged Shopware User Id
+     *
+     * @var integer|null
+     */
+    protected $shopwareUserId;
+
+    /**
+     * The logged Shopware customer number
+     *
+     * @var integer|null
+     */
+    protected $shopwareCustomerNumber;
 
     /**
      * Get the Method Instance (Checkout/Direct)
@@ -203,6 +219,46 @@ abstract class SdkService
     }
 
     /**
+     * The logged Shopware User Id
+     *
+     * @return integer|null
+     */
+    public function getShopwareUserId()
+    {
+        return $this->shopwareUserId;
+    }
+
+    /**
+     * The logged Shopware User Id
+     *
+     * @param integer|null $value
+     */
+    public function setShopwareUserId($value)
+    {
+        $this->shopwareUserId = $value;
+    }
+
+    /**
+     * The logged Shopware customer number
+     *
+     * @return integer|null
+     */
+    public function getShopwareCustomerNumber()
+    {
+        return $this->shopwareCustomerNumber;
+    }
+
+    /**
+     * The logged Shopware customer number
+     *
+     * @param integer|null $value
+     */
+    public function setShopwareCustomerNumber($value)
+    {
+        $this->shopwareCustomerNumber = $value;
+    }
+
+    /**
      * Initialize the Genesis SDK Object
      *
      * @return Genesis
@@ -223,8 +279,6 @@ abstract class SdkService
                 Types::getFinancialRequestClassForTrxType($this->getConfig()[SdkSettingKeys::TRANSACTION_TYPES][0])
             );
         }
-
-        $this->appendSpecificMethodParams();
 
         return $this->genesis;
     }
@@ -311,20 +365,10 @@ abstract class SdkService
             md5(uniqid(mt_rand(), true))
         );
 
-        $prefix = empty($prefix) ?: "{$prefix}_";
+        $prefix = empty($prefix) ?: "{$prefix}-";
         $length = self::MAX_TRANSACTION_ID_LENGTH - mb_strlen($prefix);
 
         return $prefix . strtolower(substr(sha1($unique), 0, $length));
-    }
-
-    /**
-     * Append the Transaction Types to the Genesis Request Object
-     * For example eMerchantPay Checkout Method adds the Transaction Types used for the WPF\Create Request
-     *
-     * @return void
-     */
-    protected function appendSpecificMethodParams()
-    {
     }
 
     /**

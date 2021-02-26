@@ -23,13 +23,22 @@ use EMerchantPay\Components\Base\SdkService;
 use EMerchantPay\Components\Constants\EmerchantpayPaymentAttributes;
 use EMerchantPay\Components\Constants\SdkSettingKeys;
 use EMerchantPay\Components\Models\PaymentData;
+use EMerchantPay\Components\Services\EmerchantpayConfig;
 use EMerchantPay\Models\Transaction\Repository;
 use EMerchantPay\Models\Transaction\Transaction;
+use Genesis\API\Constants\Payment\Methods as PproMethods;
+use Genesis\API\Constants\Transaction\Types;
 use Genesis\API\Notification;
 use Genesis\API\Request\WPF\Create;
 use Genesis\Genesis;
 use Genesis\Utils\Currency;
 
+/**
+ * The Checkout Service delivers Checkout Method functionality
+ *
+ * Class CheckoutService
+ * @package EMerchantPay\Components\Methods
+ */
 class CheckoutService extends SdkService
 {
     /**
@@ -99,6 +108,8 @@ class CheckoutService extends SdkService
             ->setShippingCountry($paymentData->getShippingCountry())
             ->setLanguage($this->getConfig()[SdkSettingKeys::CHECKOUT_LANGUAGE]);
 
+        $this->prepareTransactionTypes();
+
         return $this->genesis;
     }
 
@@ -163,15 +174,47 @@ class CheckoutService extends SdkService
     /**
      * Append WPF Transaction Types
      */
-    protected function appendSpecificMethodParams()
+    protected function prepareTransactionTypes()
     {
-        $types = $this->getConfig()[SdkSettingKeys::TRANSACTION_TYPES];
+        $types = $this->getCheckoutTransactionTypes();
 
         /** @var Create $request */
         $request = $this->genesis->request();
 
-        foreach ($types as $type) {
-            $request->addTransactionType($type);
+        foreach ($types as $transactionType) {
+            if (is_array($transactionType)) {
+                $request->addTransactionType(
+                    $transactionType['name'],
+                    $transactionType['parameters']
+                );
+
+                continue;
+            }
+
+            switch ($transactionType) {
+                case Types::IDEBIT_PAYIN:
+                case Types::INSTA_DEBIT_PAYIN:
+                    $parameters = [
+                        'customer_account_id' => $this->getShopwareCustomerNumber()
+                    ];
+                    break;
+                case Types::TRUSTLY_SALE:
+                    $parameters = [
+                        'user_id' => $this->getShopwareUserId()
+                    ];
+                    break;
+            }
+
+            if (!isset($parameters)) {
+                $parameters = [];
+            }
+
+            $request->addTransactionType(
+                $transactionType,
+                $parameters
+            );
+
+            unset($parameters);
         }
     }
 
@@ -284,5 +327,42 @@ class CheckoutService extends SdkService
             ['id' => 'DESC'],
             1
         );
+    }
+
+    /**
+     * Process the Checkout Config and provides the transaction type names with their params
+     *
+     * @return array
+     */
+    protected function getCheckoutTransactionTypes()
+    {
+        $processedList = [];
+        $aliasMap      = [];
+
+        $selectedTypes = $this->getConfig()[SdkSettingKeys::TRANSACTION_TYPES];
+        $pproSuffix    = EmerchantpayConfig::PPRO_TRANSACTION_SUFFIX;
+        $methods        = PproMethods::getMethods();
+
+        foreach ($methods as $method) {
+            $aliasMap[$method . $pproSuffix] = Types::PPRO;
+        }
+
+        foreach ($selectedTypes as $selectedType) {
+            if (!array_key_exists($selectedType, $aliasMap)) {
+                $processedList[] = $selectedType;
+
+                continue;
+            }
+
+            $transactionType = $aliasMap[$selectedType];
+
+            $processedList[$transactionType]['name'] = $transactionType;
+
+            $processedList[$transactionType]['parameters'][] = [
+                'payment_method' => str_replace($pproSuffix, '', $selectedType)
+            ];
+        }
+
+        return $processedList;
     }
 }

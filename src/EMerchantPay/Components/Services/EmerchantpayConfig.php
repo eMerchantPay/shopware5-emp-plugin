@@ -33,6 +33,11 @@ use Shopware\Components\Model\ModelManager;
 class EmerchantpayConfig
 {
     /**
+     * PPRO transaction suffix
+     */
+    const PPRO_TRANSACTION_SUFFIX = '_ppro';
+
+    /**
      * The name of the Plugin
      *
      * @var string $pluginName

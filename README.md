@@ -6,8 +6,8 @@ This is a Payment Module for Shopware 5, that gives you the ability to process p
 Requirements
 ------------
 
-* Shopware 5 (Tested on: __5.2.13__)
-* [GenesisPHP v1.18.7](https://github.com/GenesisGateway/genesis_php/releases/tag/1.18.7)
+* Shopware 5 (Tested on: __5.6.6__)
+* [GenesisPHP v1.18.8](https://github.com/GenesisGateway/genesis_php/releases/tag/1.18.8)
 * PCI-certified server in order to use ```emerchantpay Direct```
 
 GenesisPHP Requirements
@@ -30,7 +30,7 @@ Installation (manual) via platform Upload Form
 * Choose navigate to the **EMerchantPay.zip** and upload it
 * New entry with name **EMerchantPay Payment** should appear in section ```Uninstalled```. Click on the plugin and then ```Install``` and ```Activate``` it
 * During the Activation process, you will be asked for cache clearing. It is required for registering all of the `emerchantpay` components. Reload the Backend after that (reload the browser page).
-* Go to ```Configuration``` -> ```Payment Methods```. On the page should appear **EMerchantPay Checkout** and **EMerchantPay Direct**
+* Go to ```Configuration``` -> ```Payment Methods```. On the page should appear **emerchantpay Checkout** and **emerchantpay Direct**
 
 Installation (manual) via console
 ---------------------
@@ -44,6 +44,12 @@ Configuration
 * Configure the Plugin Settings. Choose `Configuration` -> `Payment Methods`. Choose `emerchantpay Checkout` or `emerchantpay Direct`. Click on `emerchantpay Config` tab and fill up the form. After that click on `Save`
 * Enable Phone number. `Configuration` -> `Basic Settings`. Expand `Frontend` and choose `Login / registration`. Locate `Treat phone number as required` and set `Yes`, locate `Show phone number field` and set `Yes`. Click `Save`. This will allow your new customer to fill in a phone number on the registration page.
 * Add Phone number to existing customers. `Customers` -> `Customers`. Edit the desired customer. Choose `Addresses` edit the desired address and fill in up the `Phone`
+
+Uninstall \*CAUTION\*
+---------------------
+When uninstalling, a message will appear asking if the plug-in data needs to be removed:
+* **Yes** - Removes all saved Plugin data \***THIS CAN NOT BE UNDONE**\*
+* **No** - The Plugin data remain untouched
 
 Supported Transactions
 ---------------------
@@ -70,7 +76,7 @@ Supported Transactions
     * __Trustly Sale__
     * __PayPal Express__
   * __Credit Cards__
-    * __Account Verification_
+    * __Account Verification__
     * __Argencard__
     * __Aura__
     * __Authorize__
@@ -116,6 +122,7 @@ Supported Transactions
     * __OnlineBanking__
     * __PayU__
     * __RapiPago__
+    * __Post Finance__
     * __PSE__
     * __Santander__
     * __TrustPay__
