@@ -223,6 +223,8 @@ class Types
     /**
      * Trustly is an oBeP-style alternative payment method that allows you to
      * withdraw money directly from your online bank account using your bank credentials.
+     *
+     * @deprecated Since 1.18.9 Payment method is deprecated and will be removed
      */
     const TRUSTLY_WITHDRAWAL = 'trustly_withdrawal';
 
@@ -703,6 +705,11 @@ class Types
     const POST_FINANCE = 'post_finance';
 
     /**
+     * Google Pay allows shoppers to purchase with credit and debit cards linked to their Google account.
+     */
+    const GOOGLE_PAY = 'google_pay';
+
+    /**
      * Retrieve all available transaction Types
      *
      * @return array
@@ -776,6 +783,7 @@ class Types
             self::FASHIONCHEQUE           => 'GiftCards\Fashioncheque',
             self::INTERSOLVE              => 'GiftCards\Intersolve',
             self::APPLE_PAY               => 'Mobile\ApplePay',
+            self::GOOGLE_PAY              => 'Mobile\GooglePay',
             self::ALIPAY                  => 'OnlineBankingPayments\Alipay',
             self::ASTROPAY_DIRECT         => 'OnlineBankingPayments\AstropayDirect',
             self::BANCO_DO_BRASIL         => 'OnlineBankingPayments\BancoDoBrasil',
@@ -826,7 +834,6 @@ class Types
             self::QIWI                    => 'Wallets\Qiwi',
             self::WEBMONEY                => 'Wallets\WebMoney',
             self::ZIMPLER                 => 'Wallets\Zimpler',
-
         ];
 
         return isset($map[$type]) ? 'Financial\\' . $map[$type] : false;
@@ -878,6 +885,7 @@ class Types
             self::EZEEWALLET,
             self::FASHIONCHEQUE,
             self::GIROPAY,
+            self::GOOGLE_PAY,
             self::IDEAL,
             self::IDEBIT_PAYIN,
             self::INIT_RECURRING_SALE,
@@ -915,7 +923,6 @@ class Types
             self::TARJETA_SHOPPING,
             self::TCS,
             self::TRUSTLY_SALE,
-            self::TRUSTLY_WITHDRAWAL,
             self::TRUSTPAY,
             self::UPI,
             self::WEBMONEY,
@@ -992,7 +999,8 @@ class Types
             self::AUTHORIZE,
             self::AUTHORIZE_3D,
             self::KLARNA_AUTHORIZE,
-            self::APPLE_PAY
+            self::APPLE_PAY,
+            self::GOOGLE_PAY
         ];
 
         return in_array(strtolower($type), $transactionTypesList);
@@ -1041,6 +1049,7 @@ class Types
             self::PSE,
             self::POST_FINANCE,
             self::RAPI_PAGO,
+            self::RECURRING_SALE,
             self::REDPAGOS,
             self::SAFETYPAY,
             self::SALE,
@@ -1054,7 +1063,8 @@ class Types
             self::UPI,
             self::WEBPAY,
             self::WECHAT,
-            self::ZIMPLER
+            self::ZIMPLER,
+            self::GOOGLE_PAY,
         ];
 
         return in_array(strtolower($type), $transactionTypesList);
@@ -1078,7 +1088,8 @@ class Types
             self::CAPTURE,
             self::APPLE_PAY,
             self::SALE,
-            self::SALE_3D
+            self::SALE_3D,
+            self::GOOGLE_PAY,
         ];
 
         return in_array(strtolower($type), $transactionTypesList);
@@ -1221,14 +1232,15 @@ class Types
             self::EMPRESE_DE_ENERGIA,
             self::ENTERCASH,
             self::HIPERCARD,
+            self::INSTANT_TRANSFER,
             self::INPAY,
             self::PAYBYVOUCHER_SALE,
             self::PAYBYVOUCHER_YEEPAY,
-            self::SURTIMAX,
-            self::ZIMPLER,
+            self::QIWI,
             self::SANTANDER_CASH,
-            self::INSTANT_TRANSFER,
-            self::QIWI
+            self::SURTIMAX,
+            self::TRUSTLY_WITHDRAWAL,
+            self::ZIMPLER
         ];
 
         foreach ($transactions as $transaction) {

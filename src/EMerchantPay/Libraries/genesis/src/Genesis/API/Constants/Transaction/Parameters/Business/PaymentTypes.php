@@ -20,66 +20,37 @@
  *
  * @license     http://opensource.org/licenses/MIT The MIT License
  */
-namespace Genesis\API\Constants;
 
-use Genesis\Utils\Common;
+namespace Genesis\API\Constants\Transaction\Parameters\Business;
 
 /**
- * Class DateTimeFormat
+ * Define the type of payment
  *
- * List of DateTime format
- *
- * @package Genesis\API\Constants
+ * Class PaymentTypes
+ * @package Genesis\API\Constants\Transaction\Parameters\Business
  */
-class DateTimeFormat
+class PaymentTypes
 {
     /**
-     * Little endian(day, month, year) system with hyphens in between
+     * Deposit
      */
-    const DD_MM_YYYY_L_HYPHENS = 'd-m-Y';
+    const DEPOSIT = 'deposit';
 
     /**
-     * Little endian(day, month, year) system with dots in between
+     * Balance
      */
-    const DD_MM_YYYY_L_DOTS = 'd.m.Y';
+    const BALANCE = 'balance';
 
     /**
-     * Little endian(day, month, year) system with dots in between
-     */
-    const DD_MM_YYYY_L_SLASHES = 'd/m/Y';
-
-    /**
-     * Zulu timestamp
-     */
-    const YYYY_MM_DD_H_I_S_ZULU = 'Y-m-d\TH:i:s\Z';
-
-    /**
-     * Date Format ISO 8601
-     */
-    const YYYY_MM_DD_ISO_8601 = 'Y-m-d';
-
-    /**
-     * Retrieve list of all DateTime formats
+     * Get all available Payment Types
      *
      * @return array
      */
     public static function getAll()
     {
-        return Common::getClassConstants(self::class);
-    }
-
-    /**
-     * Get all Date Formats
-     *
-     * @return array
-     */
-    public static function getDateFormats()
-    {
         return [
-            self::DD_MM_YYYY_L_HYPHENS,
-            self::DD_MM_YYYY_L_DOTS,
-            self::DD_MM_YYYY_L_SLASHES,
-            self::YYYY_MM_DD_ISO_8601
+            self::DEPOSIT,
+            self::BALANCE
         ];
     }
 }

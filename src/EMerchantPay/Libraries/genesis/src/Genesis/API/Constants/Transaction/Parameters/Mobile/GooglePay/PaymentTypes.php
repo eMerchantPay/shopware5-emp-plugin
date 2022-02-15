@@ -20,66 +20,35 @@
  *
  * @license     http://opensource.org/licenses/MIT The MIT License
  */
-namespace Genesis\API\Constants;
 
-use Genesis\Utils\Common;
+namespace Genesis\API\Constants\Transaction\Parameters\Mobile\GooglePay;
 
-/**
- * Class DateTimeFormat
- *
- * List of DateTime format
- *
- * @package Genesis\API\Constants
- */
-class DateTimeFormat
+use Genesis\Utils\Common as CommonUtils;
+
+class PaymentTypes
 {
     /**
-     * Little endian(day, month, year) system with hyphens in between
+     * Google Pay authorize transaction type
      */
-    const DD_MM_YYYY_L_HYPHENS = 'd-m-Y';
+    const AUTHORIZE = 'authorize';
 
     /**
-     * Little endian(day, month, year) system with dots in between
+     * Google Pay recurring transaction type
      */
-    const DD_MM_YYYY_L_DOTS = 'd.m.Y';
+    const RECURRING = 'recurring';
 
     /**
-     * Little endian(day, month, year) system with dots in between
+     * Google Pay sale transaction type
      */
-    const DD_MM_YYYY_L_SLASHES = 'd/m/Y';
+    const SALE = 'sale';
 
     /**
-     * Zulu timestamp
-     */
-    const YYYY_MM_DD_H_I_S_ZULU = 'Y-m-d\TH:i:s\Z';
-
-    /**
-     * Date Format ISO 8601
-     */
-    const YYYY_MM_DD_ISO_8601 = 'Y-m-d';
-
-    /**
-     * Retrieve list of all DateTime formats
+     * Get Google Pay allowed payment types
      *
      * @return array
      */
-    public static function getAll()
+    public static function getAllowedPaymentTypes()
     {
-        return Common::getClassConstants(self::class);
-    }
-
-    /**
-     * Get all Date Formats
-     *
-     * @return array
-     */
-    public static function getDateFormats()
-    {
-        return [
-            self::DD_MM_YYYY_L_HYPHENS,
-            self::DD_MM_YYYY_L_DOTS,
-            self::DD_MM_YYYY_L_SLASHES,
-            self::YYYY_MM_DD_ISO_8601
-        ];
+        return CommonUtils::getClassConstants(__CLASS__);
     }
 }

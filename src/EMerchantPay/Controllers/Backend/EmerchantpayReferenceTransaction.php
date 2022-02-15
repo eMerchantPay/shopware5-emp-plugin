@@ -18,9 +18,11 @@
  */
 
 use EMerchantPay\Components\Constants\ReferenceActionAttributes as ActionAttributes;
+use EMerchantPay\Components\Constants\SdkSettingKeys;
 use EMerchantPay\Components\Helpers\TransactionTree;
 use EMerchantPay\Components\Methods\CheckoutService;
 use EMerchantPay\Components\Methods\DirectService;
+use EMerchantPay\Components\Services\EmerchantpayConfig;
 use Genesis\API\Constants\Transaction\States;
 use Genesis\API\Constants\Transaction\Types;
 
@@ -37,9 +39,15 @@ class Shopware_Controllers_Backend_EmerchantpayReferenceTransaction extends Shop
      */
     protected $logger;
 
+    /**
+     * @var EmerchantpayConfig
+     */
+    protected $config;
+
     public function preDispatch()
     {
         $this->logger = $this->get('emerchantpay.plugin_logger_service');
+        $this->config = $this->get('emerchantpay.plugin_config_service');
 
         parent::preDispatch();
     }
@@ -209,6 +217,10 @@ class Shopware_Controllers_Backend_EmerchantpayReferenceTransaction extends Shop
      */
     private function isValidAction($action, $transactionType)
     {
+        if ($this->isTransactionWithCustomAttribute($transactionType)) {
+            return $this->checkReferenceActionByCustomAttr($action, $transactionType);
+        }
+
         switch ($action) {
             case ActionAttributes::ACTION_CAPTURE:
                 return Types::canCapture($transactionType);
@@ -222,5 +234,64 @@ class Shopware_Controllers_Backend_EmerchantpayReferenceTransaction extends Shop
             default:
                 throw new \Exception('Invalid Reference action given');
         }
+    }
+
+    /**
+     * Check if special validation should be applied
+     *
+     * @param $transactionType
+     * @return bool
+     */
+    private function isTransactionWithCustomAttribute($transactionType)
+    {
+        $transactionTypes = [
+            Types::GOOGLE_PAY
+        ];
+
+        return in_array($transactionType, $transactionTypes);
+    }
+
+    /**
+     * Check if canCapture, canRefund and canVoid
+     *
+     * @param $action
+     * @param $transactionType
+     * @return bool
+     */
+    private function checkReferenceActionByCustomAttr($action, $transactionType)
+    {
+        switch ($transactionType) {
+            case Types::GOOGLE_PAY:
+                if (ActionAttributes::ACTION_CAPTURE === $action || ActionAttributes::ACTION_VOID === $action) {
+                    return in_array(
+                        EmerchantpayConfig::GOOGLE_PAY_TRANSACTION_PREFIX .
+                        EmerchantpayConfig::GOOGLE_PAY_PAYMENT_TYPE_AUTHORIZE,
+                        $this->getCheckoutConfig()[SdkSettingKeys::TRANSACTION_TYPES]
+                    );
+                }
+
+                if ($action === ActionAttributes::ACTION_REFUND) {
+                    return in_array(
+                        EmerchantpayConfig::GOOGLE_PAY_TRANSACTION_PREFIX .
+                        EmerchantpayConfig::GOOGLE_PAY_PAYMENT_TYPE_SALE,
+                        $this->getCheckoutConfig()[SdkSettingKeys::TRANSACTION_TYPES]
+                    );
+                }
+                break;
+            default:
+                return false;
+        } // end Switch
+
+        return false;
+    }
+
+    /**
+     * Get Checkout Config settings
+     *
+     * @return array
+     */
+    private function getCheckoutConfig()
+    {
+        return $this->config->getConfigByMethod(\EMerchantPay\Components\Base\SdkService::METHOD_CHECKOUT);
     }
 }

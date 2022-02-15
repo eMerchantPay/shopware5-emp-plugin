@@ -1,5 +1,11 @@
 Change Log
 ---------------------
+__1.0.2__
+-----
+* Updated Genesis PHP SDK library to version 1.19.2 (#728)
+* Updated Card.js JavaScript plugin used by the Direct Method (#728)
+* Added support for Google Pay transaction type via Checkout Method (Web Payment Form) (#727)
+
 __1.0.1__
 -----
 * Added new transaction type Post Finance available in the emerchantpay Checkout Method (#520)

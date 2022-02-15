@@ -41,6 +41,9 @@ class Shopware_Controllers_Backend_ConfigCheckoutTypes extends Shopware_Controll
         // Exclude PPRO transaction. This is not standalone transaction type
         array_push($excludedTypes, GenesisTransactionTypes::PPRO);
 
+        // Exclude Google Pay transaction
+        array_push($excludedTypes, GenesisTransactionTypes::GOOGLE_PAY);
+
         // Exclude Transaction Types
         $transactionTypes = array_diff($transactionTypes, $excludedTypes);
 
@@ -51,7 +54,18 @@ class Shopware_Controllers_Backend_ConfigCheckoutTypes extends Shopware_Controll
             },
             GenesisPaymentMethods::getMethods()
         );
-        $transactionTypes = array_merge($transactionTypes, $pproTypes);
+
+        $googlePayTypes = array_map(
+            function ($type) {
+                return EmerchantpayConfig::GOOGLE_PAY_TRANSACTION_PREFIX . $type;
+            },
+            [
+                EmerchantpayConfig::GOOGLE_PAY_PAYMENT_TYPE_AUTHORIZE,
+                EmerchantpayConfig::GOOGLE_PAY_PAYMENT_TYPE_SALE
+            ]
+        );
+
+        $transactionTypes = array_merge($transactionTypes, $pproTypes, $googlePayTypes);
         asort($transactionTypes);
 
         foreach ($transactionTypes as $type) {

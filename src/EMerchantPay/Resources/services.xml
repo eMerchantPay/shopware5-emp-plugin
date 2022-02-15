@@ -5,19 +5,22 @@
     <services>
 
         <service id="emerchantpay.subscriber.emerchantpay_resource_subscriber"
-                 class="EMerchantPay\Subscribers\ResourceSubscriber">
+                 class="EMerchantPay\Subscribers\ResourceSubscriber"
+                 public="true">
             <argument>%e_merchant_pay.plugin_dir%</argument>
             <tag name="shopware.event_subscriber"/>
         </service>
 
         <service id="emerchantpay.plugin_logger_service"
-                 class="EMerchantPay\Components\Services\EmerchantpayLogger">
+                 class="EMerchantPay\Components\Services\EmerchantpayLogger"
+                 public="true">
             <argument type="service" id="e_merchant_pay.logger"/>
             <argument type="service" id="emerchantpay.transform_credit_card_data" />
         </service>
 
         <service id="emerchantpay.genesis_checkout_service"
-                 class="EMerchantPay\Components\Methods\CheckoutService">
+                 class="EMerchantPay\Components\Methods\CheckoutService"
+                 public="true">
             <argument type="service" id="emerchantpay.plugin_config_service"/>
             <argument>%e_merchant_pay.plugin_name%</argument>
             <argument type="service" id="emerchantpay.plugin_logger_service"/>
@@ -25,7 +28,8 @@
         </service>
 
         <service id="emerchantpay.genesis_direct_service"
-                 class="EMerchantPay\Components\Methods\DirectService">
+                 class="EMerchantPay\Components\Methods\DirectService"
+                 public="true">
             <argument type="service" id="emerchantpay.plugin_config_service"/>
             <argument>%e_merchant_pay.plugin_name%</argument>
             <argument type="service" id="emerchantpay.plugin_logger_service"/>
@@ -33,30 +37,35 @@
         </service>
 
         <service id="emerchantpay.shopware_helper_service"
-                 class="EMerchantPay\Components\Services\ShopwareHelper">
+                 class="EMerchantPay\Components\Services\ShopwareHelper"
+                 public="true">
         </service>
 
         <service id="emerchantpay.subscribers.emerchantpay_order_transactions"
-                 class="EMerchantPay\Subscribers\EmerchantpayOrderTransactions">
+                 class="EMerchantPay\Subscribers\EmerchantpayOrderTransactions"
+                 public="true">
             <argument>%e_merchant_pay.plugin_dir%</argument>
             <tag name="shopware.event_subscriber"/>
         </service>
 
         <service id="emerchantpay.subscribers.emerchantpay_payment_methods"
-                 class="EMerchantPay\Subscribers\EmerchantpayPaymentMethods">
+                 class="EMerchantPay\Subscribers\EmerchantpayPaymentMethods"
+                 public="true">
             <argument>%e_merchant_pay.plugin_dir%</argument>
             <tag name="shopware.event_subscriber"/>
         </service>
 
         <service id="emerchantpay.plugin_config_service"
-                 class="EMerchantPay\Components\Services\EmerchantpayConfig">
+                 class="EMerchantPay\Components\Services\EmerchantpayConfig"
+                 public="true">
             <argument>%e_merchant_pay.plugin_name%</argument>
             <argument type="service" id="emerchantpay.plugin_logger_service"/>
             <argument type="service" id="models" />
         </service>
 
         <service id="emerchantpay.transform_credit_card_data"
-                 class="EMerchantPay\Components\Services\TransformCreditCardData">
+                 class="EMerchantPay\Components\Services\TransformCreditCardData"
+                 public="true">
         </service>
 
     </services>

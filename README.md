@@ -6,8 +6,8 @@ This is a Payment Module for Shopware 5, that gives you the ability to process p
 Requirements
 ------------
 
-* Shopware 5 (Tested on: __5.6.6__)
-* [GenesisPHP v1.18.8](https://github.com/GenesisGateway/genesis_php/releases/tag/1.18.8)
+* Shopware 5 (Tested up to: __5.7.7__)
+* [GenesisPHP v1.19.2](https://github.com/GenesisGateway/genesis_php/releases/tag/1.19.2)
 * PCI-certified server in order to use ```emerchantpay Direct```
 
 GenesisPHP Requirements
@@ -129,6 +129,8 @@ Supported Transactions
     * __UPI__
     * __Webpay__
     * __WeChat__
+  * __Mobile__
+    * __GooglePay__
   * __Vouchers__
     * __CashU__
     * __Neosurf__

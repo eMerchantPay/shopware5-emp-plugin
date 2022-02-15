@@ -5,7 +5,7 @@
     <label lang="en">emerchantpay Payment</label>
     <label lang="de">emerchantpay Payment</label>
 
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <copyright>(c) emerchantpay Ltd.</copyright>
     <license>GNU</license>
     <link>https://www.emerchantpay.com</link>
@@ -64,6 +64,19 @@
         </table>
         ]]>
     </description>
+
+    <changelog version="1.0.2">
+        <changes lang="en">
+            <![CDATA[
+            <p><b>Features</b>:</p>
+            <div><ul>
+                <li>- Updated Genesis PHP SDK library to version 1.19.2</b></li>
+                <li>- Updated Card.js JavaScript plugin used by the Direct Method</li>
+                <li>- Added support for Google Pay transaction type via Checkout Method (Web Payment Form)</li>
+            </ul></div>
+            ]]>
+        </changes>
+    </changelog>
 
     <changelog version="1.0.1">
         <changes lang="en">

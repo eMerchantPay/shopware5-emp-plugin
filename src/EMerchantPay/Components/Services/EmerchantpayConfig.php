@@ -38,6 +38,13 @@ class EmerchantpayConfig
     const PPRO_TRANSACTION_SUFFIX = '_ppro';
 
     /**
+     * Google Pay Transaction constants
+     */
+    const GOOGLE_PAY_TRANSACTION_PREFIX     = 'google_pay_';
+    const GOOGLE_PAY_PAYMENT_TYPE_AUTHORIZE = 'authorize';
+    const GOOGLE_PAY_PAYMENT_TYPE_SALE      = 'sale';
+
+    /**
      * The name of the Plugin
      *
      * @var string $pluginName

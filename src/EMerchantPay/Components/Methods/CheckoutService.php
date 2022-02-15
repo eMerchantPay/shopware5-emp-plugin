@@ -347,6 +347,13 @@ class CheckoutService extends SdkService
             $aliasMap[$method . $pproSuffix] = Types::PPRO;
         }
 
+        $aliasMap = array_merge($aliasMap, [
+            EmerchantpayConfig::GOOGLE_PAY_TRANSACTION_PREFIX . EmerchantpayConfig::GOOGLE_PAY_PAYMENT_TYPE_AUTHORIZE =>
+                Types::GOOGLE_PAY,
+            EmerchantpayConfig::GOOGLE_PAY_TRANSACTION_PREFIX . EmerchantpayConfig::GOOGLE_PAY_PAYMENT_TYPE_SALE      =>
+                Types::GOOGLE_PAY
+        ]);
+
         foreach ($selectedTypes as $selectedType) {
             if (!array_key_exists($selectedType, $aliasMap)) {
                 $processedList[] = $selectedType;
@@ -358,8 +365,14 @@ class CheckoutService extends SdkService
 
             $processedList[$transactionType]['name'] = $transactionType;
 
+            $key = Types::GOOGLE_PAY === $transactionType ? 'payment_type' : 'payment_method';
+
             $processedList[$transactionType]['parameters'][] = [
-                'payment_method' => str_replace($pproSuffix, '', $selectedType)
+                $key => str_replace(
+                    [$pproSuffix, EmerchantpayConfig::GOOGLE_PAY_TRANSACTION_PREFIX],
+                    '',
+                    $selectedType
+                )
             ];
         }
 

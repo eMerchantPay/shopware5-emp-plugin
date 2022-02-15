@@ -427,7 +427,7 @@ abstract class SdkService
     {
         switch ($status) {
             case States::APPROVED:
-                $paymentStatus = Types::isAuthorize($transactionType) ?
+                $paymentStatus = $this->isAuthorized($transactionType) ?
                     Status::PAYMENT_STATE_COMPLETELY_PAID : Status::PAYMENT_STATE_COMPLETELY_INVOICED;
 
                 $orderRepository->setPaymentStatus(
@@ -464,6 +464,27 @@ abstract class SdkService
                 );
                 break;
         }
+    }
+
+    /**
+     * Get the Shopware Payment status for the approved transactions
+     *
+     * @param $transactionType
+     * @return bool
+     */
+    protected function isAuthorized($transactionType)
+    {
+        $selectedTypes = $this->getConfig()[SdkSettingKeys::TRANSACTION_TYPES];
+
+        if ($transactionType === Types::GOOGLE_PAY) {
+            return in_array(
+                EmerchantpayConfig::GOOGLE_PAY_TRANSACTION_PREFIX .
+                EmerchantpayConfig::GOOGLE_PAY_PAYMENT_TYPE_AUTHORIZE,
+                $selectedTypes
+            );
+        }
+
+        return Types::isAuthorize($transactionType);
     }
 
     /**
