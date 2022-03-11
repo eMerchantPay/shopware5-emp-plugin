@@ -1,5 +1,16 @@
 Change Log
 ---------------------
+
+__1.0.3__
+-----
+* Updated Genesis PHP SDK library to version 1.20.0 (#758)
+* Updated Card.js to the latests (#758)
+* Added new transaction type Pay Pal via Web Payment Form with support of its methods (#759):
+  * Authorize
+  * Sale
+  * Express
+* Updated Google Pay transaction type via Web Payment Form with the latest requirements from the payment gateway (#783)
+
 __1.0.2__
 -----
 * Updated Genesis PHP SDK library to version 1.19.2 (#728)

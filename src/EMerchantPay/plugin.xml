@@ -5,7 +5,7 @@
     <label lang="en">emerchantpay Payment</label>
     <label lang="de">emerchantpay Payment</label>
 
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <copyright>(c) emerchantpay Ltd.</copyright>
     <license>GNU</license>
     <link>https://www.emerchantpay.com</link>
@@ -65,12 +65,32 @@
         ]]>
     </description>
 
+    <changelog version="1.0.3">
+        <changes lang="en">
+            <![CDATA[
+            <p><b>Features</b>:</p>
+            <div><ul>
+                <li>- Updated Genesis PHP SDK library to version 1.20.0</li>
+                <li>- Updated Card.js to the latests</li>
+                <li>- Added new transaction type <b>Pay Pal</b> via Web Payment Form with support of its methods
+                    <ul>
+                        <li>&emsp;<b>Authorize</b></li>
+                        <li>&emsp;<b>Sale</b></li>
+                        <li>&emsp;<b>Express</b></li>
+                    </ul>
+                </li>
+                <li>- Updated <b>Google Pay</b> transaction type via Web Payment Form with the latest requirements from the payment gateway</li>
+            </ul></div>
+            ]]>
+        </changes>
+    </changelog>
+
     <changelog version="1.0.2">
         <changes lang="en">
             <![CDATA[
             <p><b>Features</b>:</p>
             <div><ul>
-                <li>- Updated Genesis PHP SDK library to version 1.19.2</b></li>
+                <li>- Updated Genesis PHP SDK library to version 1.19.2</li>
                 <li>- Updated Card.js JavaScript plugin used by the Direct Method</li>
                 <li>- Added support for Google Pay transaction type via Checkout Method (Web Payment Form)</li>
             </ul></div>

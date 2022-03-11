@@ -7,7 +7,7 @@ Requirements
 ------------
 
 * Shopware 5 (Tested up to: __5.7.7__)
-* [GenesisPHP v1.19.2](https://github.com/GenesisGateway/genesis_php/releases/tag/1.19.2)
+* [GenesisPHP v1.20.0](https://github.com/GenesisGateway/genesis_php/releases/tag/1.19.2)
 * PCI-certified server in order to use ```emerchantpay Direct```
 
 GenesisPHP Requirements
@@ -74,7 +74,6 @@ Supported Transactions
       * __Bancontact__
     * __SOFORT__
     * __Trustly Sale__
-    * __PayPal Express__
   * __Credit Cards__
     * __Account Verification__
     * __Argencard__
@@ -144,6 +143,8 @@ Supported Transactions
     * __eZeeWallet__
     * __Neteller__
     * __WebMoney__
+  * __Wallets__
+    * __PayPal__
 
 _Note_: If you have trouble with your credentials or terminal configuration, get in touch with our [support] team
 

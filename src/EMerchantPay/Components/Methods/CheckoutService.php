@@ -73,6 +73,11 @@ class CheckoutService extends SdkService
                     EmerchantpayPaymentAttributes::RETURN_ACTION_PARAM_TRANSACTION_ID => $transactionId
                 ])
             )
+            ->setReturnPendingUrl(
+                $paymentData->getSuccessUrl() . '&' . http_build_query([
+                    EmerchantpayPaymentAttributes::RETURN_ACTION_PARAM_TRANSACTION_ID => $transactionId
+                ])
+            )
             ->setReturnFailureUrl(
                 $paymentData->getFailureUrl() . '&' . http_build_query([
                     EmerchantpayPaymentAttributes::RETURN_ACTION_PARAM_TRANSACTION_ID => $transactionId
@@ -351,7 +356,13 @@ class CheckoutService extends SdkService
             EmerchantpayConfig::GOOGLE_PAY_TRANSACTION_PREFIX . EmerchantpayConfig::GOOGLE_PAY_PAYMENT_TYPE_AUTHORIZE =>
                 Types::GOOGLE_PAY,
             EmerchantpayConfig::GOOGLE_PAY_TRANSACTION_PREFIX . EmerchantpayConfig::GOOGLE_PAY_PAYMENT_TYPE_SALE      =>
-                Types::GOOGLE_PAY
+                Types::GOOGLE_PAY,
+            EmerchantpayConfig::PAYPAL_TRANSACTION_PREFIX . EmerchantpayConfig::PAYPAL_PAYMENT_TYPE_AUTHORIZE         =>
+                Types::PAY_PAL,
+            EmerchantpayConfig::PAYPAL_TRANSACTION_PREFIX . EmerchantpayConfig::PAYPAL_PAYMENT_TYPE_SALE              =>
+                Types::PAY_PAL,
+            EmerchantpayConfig::PAYPAL_TRANSACTION_PREFIX . EmerchantpayConfig::PAYPAL_PAYMENT_TYPE_EXPRESS           =>
+                Types::PAY_PAL,
         ]);
 
         foreach ($selectedTypes as $selectedType) {
@@ -365,11 +376,15 @@ class CheckoutService extends SdkService
 
             $processedList[$transactionType]['name'] = $transactionType;
 
-            $key = Types::GOOGLE_PAY === $transactionType ? 'payment_type' : 'payment_method';
+            $key = $this->getCustomParameterKey($transactionType);
 
             $processedList[$transactionType]['parameters'][] = [
                 $key => str_replace(
-                    [$pproSuffix, EmerchantpayConfig::GOOGLE_PAY_TRANSACTION_PREFIX],
+                    [
+                        $pproSuffix,
+                        EmerchantpayConfig::GOOGLE_PAY_TRANSACTION_PREFIX,
+                        EmerchantpayConfig::PAYPAL_TRANSACTION_PREFIX
+                    ],
                     '',
                     $selectedType
                 )
@@ -377,5 +392,28 @@ class CheckoutService extends SdkService
         }
 
         return $processedList;
+    }
+
+    /**
+     * @param $transactionType
+     * @return string
+     */
+    private function getCustomParameterKey($transactionType)
+    {
+        switch ($transactionType) {
+            case Types::PPRO:
+                $result = 'payment_method';
+                break;
+            case Types::PAY_PAL:
+                $result = 'payment_type';
+                break;
+            case Types::GOOGLE_PAY:
+                $result = 'payment_subtype';
+                break;
+            default:
+                $result = 'unknown';
+        }
+
+        return $result;
     }
 }

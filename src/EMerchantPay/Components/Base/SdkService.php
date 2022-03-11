@@ -476,15 +476,22 @@ abstract class SdkService
     {
         $selectedTypes = $this->getConfig()[SdkSettingKeys::TRANSACTION_TYPES];
 
-        if ($transactionType === Types::GOOGLE_PAY) {
-            return in_array(
-                EmerchantpayConfig::GOOGLE_PAY_TRANSACTION_PREFIX .
-                EmerchantpayConfig::GOOGLE_PAY_PAYMENT_TYPE_AUTHORIZE,
-                $selectedTypes
-            );
+        switch ($transactionType) {
+            case Types::GOOGLE_PAY:
+                return in_array(
+                    EmerchantpayConfig::GOOGLE_PAY_TRANSACTION_PREFIX .
+                    EmerchantpayConfig::GOOGLE_PAY_PAYMENT_TYPE_AUTHORIZE,
+                    $selectedTypes
+                );
+            case Types::PAY_PAL:
+                return in_array(
+                    EmerchantpayConfig::PAYPAL_TRANSACTION_PREFIX .
+                    EmerchantpayConfig::PAYPAL_PAYMENT_TYPE_AUTHORIZE,
+                    $selectedTypes
+                );
+            default:
+                return Types::isAuthorize($transactionType);
         }
-
-        return Types::isAuthorize($transactionType);
     }
 
     /**

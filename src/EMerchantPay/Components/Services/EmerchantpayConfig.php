@@ -45,6 +45,14 @@ class EmerchantpayConfig
     const GOOGLE_PAY_PAYMENT_TYPE_SALE      = 'sale';
 
     /**
+     * PayPal Transaction constants
+     */
+    const PAYPAL_TRANSACTION_PREFIX         = 'pay_pal_';
+    const PAYPAL_PAYMENT_TYPE_AUTHORIZE     = 'authorize';
+    const PAYPAL_PAYMENT_TYPE_SALE          = 'sale';
+    const PAYPAL_PAYMENT_TYPE_EXPRESS       = 'express';
+
+    /**
      * The name of the Plugin
      *
      * @var string $pluginName

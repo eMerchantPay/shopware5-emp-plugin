@@ -44,6 +44,9 @@ class Shopware_Controllers_Backend_ConfigCheckoutTypes extends Shopware_Controll
         // Exclude Google Pay transaction
         array_push($excludedTypes, GenesisTransactionTypes::GOOGLE_PAY);
 
+        // Exclude PayPal transaction
+        array_push($excludedTypes, GenesisTransactionTypes::PAY_PAL);
+
         // Exclude Transaction Types
         $transactionTypes = array_diff($transactionTypes, $excludedTypes);
 
@@ -65,7 +68,23 @@ class Shopware_Controllers_Backend_ConfigCheckoutTypes extends Shopware_Controll
             ]
         );
 
-        $transactionTypes = array_merge($transactionTypes, $pproTypes, $googlePayTypes);
+        $payPalTypes = array_map(
+            function ($type) {
+                return EmerchantpayConfig::PAYPAL_TRANSACTION_PREFIX . $type;
+            },
+            [
+                EmerchantpayConfig::PAYPAL_PAYMENT_TYPE_AUTHORIZE,
+                EmerchantpayConfig::PAYPAL_PAYMENT_TYPE_SALE,
+                EmerchantpayConfig::PAYPAL_PAYMENT_TYPE_EXPRESS
+            ]
+        );
+
+        $transactionTypes = array_merge(
+            $transactionTypes,
+            $pproTypes,
+            $googlePayTypes,
+            $payPalTypes
+        );
         asort($transactionTypes);
 
         foreach ($transactionTypes as $type) {

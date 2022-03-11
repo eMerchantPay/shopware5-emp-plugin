@@ -245,7 +245,8 @@ class Shopware_Controllers_Backend_EmerchantpayReferenceTransaction extends Shop
     private function isTransactionWithCustomAttribute($transactionType)
     {
         $transactionTypes = [
-            Types::GOOGLE_PAY
+            Types::GOOGLE_PAY,
+            Types::PAY_PAL,
         ];
 
         return in_array($transactionType, $transactionTypes);
@@ -275,6 +276,33 @@ class Shopware_Controllers_Backend_EmerchantpayReferenceTransaction extends Shop
                         EmerchantpayConfig::GOOGLE_PAY_TRANSACTION_PREFIX .
                         EmerchantpayConfig::GOOGLE_PAY_PAYMENT_TYPE_SALE,
                         $this->getCheckoutConfig()[SdkSettingKeys::TRANSACTION_TYPES]
+                    );
+                }
+                break;
+            case Types::PAY_PAL:
+                if (ActionAttributes::ACTION_CAPTURE === $action || ActionAttributes::ACTION_VOID === $action) {
+                    return in_array(
+                        EmerchantpayConfig::PAYPAL_TRANSACTION_PREFIX .
+                        EmerchantpayConfig::PAYPAL_PAYMENT_TYPE_AUTHORIZE,
+                        $this->getCheckoutConfig()[SdkSettingKeys::TRANSACTION_TYPES]
+                    );
+                }
+
+                if ($action == ActionAttributes::ACTION_REFUND) {
+                    $refundableTypes = [
+                        EmerchantpayConfig::PAYPAL_TRANSACTION_PREFIX .
+                        EmerchantpayConfig::PAYPAL_PAYMENT_TYPE_SALE,
+                        EmerchantpayConfig::PAYPAL_TRANSACTION_PREFIX .
+                        EmerchantpayConfig::PAYPAL_PAYMENT_TYPE_EXPRESS,
+                    ];
+
+                    return (
+                        count(
+                            array_intersect(
+                                $refundableTypes,
+                                $this->getCheckoutConfig()[SdkSettingKeys::TRANSACTION_TYPES]
+                            )
+                        ) > 0
                     );
                 }
                 break;
