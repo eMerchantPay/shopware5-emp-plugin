@@ -363,6 +363,10 @@ class CheckoutService extends SdkService
                 Types::PAY_PAL,
             EmerchantpayConfig::PAYPAL_TRANSACTION_PREFIX . EmerchantpayConfig::PAYPAL_PAYMENT_TYPE_EXPRESS           =>
                 Types::PAY_PAL,
+            EmerchantpayConfig::APPLE_PAY_TRANSACTION_PREFIX . EmerchantpayConfig::APPLE_PAY_TYPE_AUTHORIZE           =>
+                Types::APPLE_PAY,
+            EmerchantpayConfig::APPLE_PAY_TRANSACTION_PREFIX . EmerchantpayConfig::APPLE_PAY_TYPE_SALE                =>
+                Types::APPLE_PAY,
         ]);
 
         foreach ($selectedTypes as $selectedType) {
@@ -383,7 +387,8 @@ class CheckoutService extends SdkService
                     [
                         $pproSuffix,
                         EmerchantpayConfig::GOOGLE_PAY_TRANSACTION_PREFIX,
-                        EmerchantpayConfig::PAYPAL_TRANSACTION_PREFIX
+                        EmerchantpayConfig::PAYPAL_TRANSACTION_PREFIX,
+                        EmerchantpayConfig::APPLE_PAY_TRANSACTION_PREFIX,
                     ],
                     '',
                     $selectedType
@@ -408,6 +413,7 @@ class CheckoutService extends SdkService
                 $result = 'payment_type';
                 break;
             case Types::GOOGLE_PAY:
+            case Types::APPLE_PAY:
                 $result = 'payment_subtype';
                 break;
             default:

@@ -5,7 +5,7 @@
     <label lang="en">emerchantpay Payment</label>
     <label lang="de">emerchantpay Payment</label>
 
-    <version>1.0.3</version>
+    <version>1.0.4</version>
     <copyright>(c) emerchantpay Ltd.</copyright>
     <license>GNU</license>
     <link>https://www.emerchantpay.com</link>
@@ -65,6 +65,24 @@
         ]]>
     </description>
 
+    <changelog version="1.0.4">
+        <changes lang="en">
+            <![CDATA[
+            <p><b>Features</b>:</p>
+            <div><ul>
+                <li>- Updated Genesis PHP SDK library to version 1.20.1</li>
+                <li>- Updated Card.js to the latests</li>
+                <li>- Added new transaction type <b>Apple Pay</b> via Web Payment Form with support of its methods
+                    <ul>
+                        <li>&emsp;<b>Authorize</b></li>
+                        <li>&emsp;<b>Sale</b></li>
+                    </ul>
+                </li>
+            </ul></div>
+            ]]>
+        </changes>
+    </changelog>
+
     <changelog version="1.0.3">
         <changes lang="en">
             <![CDATA[
@@ -72,7 +90,7 @@
             <div><ul>
                 <li>- Updated Genesis PHP SDK library to version 1.20.0</li>
                 <li>- Updated Card.js to the latests</li>
-                <li>- Added new transaction type <b>Pay Pal</b> via Web Payment Form with support of its methods
+                <li>- Added new transaction type <b>PayPal</b> via Web Payment Form with support of its methods
                     <ul>
                         <li>&emsp;<b>Authorize</b></li>
                         <li>&emsp;<b>Sale</b></li>

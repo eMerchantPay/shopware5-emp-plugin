@@ -1,11 +1,19 @@
 Change Log
 ---------------------
 
+__1.0.4__
+-----
+* Updated Genesis PHP SDK library to version 1.20.1 (#806)
+* Updated Card.js to the latests (#806)
+* Added new transaction type Apple Pay via Web Payment Form with support of its methods (#807):
+  * Authorize
+  * Sale
+
 __1.0.3__
 -----
 * Updated Genesis PHP SDK library to version 1.20.0 (#758)
 * Updated Card.js to the latests (#758)
-* Added new transaction type Pay Pal via Web Payment Form with support of its methods (#759):
+* Added new transaction type PayPal via Web Payment Form with support of its methods (#759):
   * Authorize
   * Sale
   * Express

@@ -53,6 +53,13 @@ class EmerchantpayConfig
     const PAYPAL_PAYMENT_TYPE_EXPRESS       = 'express';
 
     /**
+     * Apple Pay Transaction contstants
+     */
+    const APPLE_PAY_TRANSACTION_PREFIX      = 'apple_pay_';
+    const APPLE_PAY_TYPE_AUTHORIZE          = 'authorize';
+    const APPLE_PAY_TYPE_SALE               = 'sale';
+
+    /**
      * The name of the Plugin
      *
      * @var string $pluginName

@@ -47,6 +47,9 @@ class Shopware_Controllers_Backend_ConfigCheckoutTypes extends Shopware_Controll
         // Exclude PayPal transaction
         array_push($excludedTypes, GenesisTransactionTypes::PAY_PAL);
 
+        // Exclude Apple Pay transactions
+        array_push($excludedTypes, GenesisTransactionTypes::APPLE_PAY);
+
         // Exclude Transaction Types
         $transactionTypes = array_diff($transactionTypes, $excludedTypes);
 
@@ -79,11 +82,22 @@ class Shopware_Controllers_Backend_ConfigCheckoutTypes extends Shopware_Controll
             ]
         );
 
+        $applePayTypes = array_map(
+            function ($type) {
+                return EmerchantpayConfig::APPLE_PAY_TRANSACTION_PREFIX . $type;
+            },
+            [
+                EmerchantpayConfig::APPLE_PAY_TYPE_AUTHORIZE,
+                EmerchantpayConfig::APPLE_PAY_TYPE_SALE
+            ]
+        );
+
         $transactionTypes = array_merge(
             $transactionTypes,
             $pproTypes,
             $googlePayTypes,
-            $payPalTypes
+            $payPalTypes,
+            $applePayTypes
         );
         asort($transactionTypes);
 

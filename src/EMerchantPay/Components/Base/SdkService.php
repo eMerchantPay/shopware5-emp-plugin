@@ -489,6 +489,12 @@ abstract class SdkService
                     EmerchantpayConfig::PAYPAL_PAYMENT_TYPE_AUTHORIZE,
                     $selectedTypes
                 );
+            case Types::APPLE_PAY:
+                return in_array(
+                    EmerchantpayConfig::APPLE_PAY_TYPE_AUTHORIZE .
+                    EmerchantpayConfig::APPLE_PAY_TYPE_AUTHORIZE,
+                    $selectedTypes
+                );
             default:
                 return Types::isAuthorize($transactionType);
         }

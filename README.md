@@ -7,7 +7,7 @@ Requirements
 ------------
 
 * Shopware 5 (Tested up to: __5.7.7__)
-* [GenesisPHP v1.20.0](https://github.com/GenesisGateway/genesis_php/releases/tag/1.19.2)
+* [GenesisPHP v1.20.1](https://github.com/GenesisGateway/genesis_php/releases/tag/1.20.1)
 * PCI-certified server in order to use ```emerchantpay Direct```
 
 GenesisPHP Requirements
@@ -129,7 +129,8 @@ Supported Transactions
     * __Webpay__
     * __WeChat__
   * __Mobile__
-    * __GooglePay__
+    * __Apple Pay__ 
+    * __Google Pay__
   * __Vouchers__
     * __CashU__
     * __Neosurf__

@@ -247,6 +247,7 @@ class Shopware_Controllers_Backend_EmerchantpayReferenceTransaction extends Shop
         $transactionTypes = [
             Types::GOOGLE_PAY,
             Types::PAY_PAL,
+            Types::APPLE_PAY,
         ];
 
         return in_array($transactionType, $transactionTypes);
@@ -288,7 +289,7 @@ class Shopware_Controllers_Backend_EmerchantpayReferenceTransaction extends Shop
                     );
                 }
 
-                if ($action == ActionAttributes::ACTION_REFUND) {
+                if ($action === ActionAttributes::ACTION_REFUND) {
                     $refundableTypes = [
                         EmerchantpayConfig::PAYPAL_TRANSACTION_PREFIX .
                         EmerchantpayConfig::PAYPAL_PAYMENT_TYPE_SALE,
@@ -303,6 +304,22 @@ class Shopware_Controllers_Backend_EmerchantpayReferenceTransaction extends Shop
                                 $this->getCheckoutConfig()[SdkSettingKeys::TRANSACTION_TYPES]
                             )
                         ) > 0
+                    );
+                }
+                break;
+            case Types::APPLE_PAY:
+                if (ActionAttributes::ACTION_CAPTURE === $action || ActionAttributes::ACTION_VOID === $action) {
+                    return in_array(
+                        EmerchantpayConfig::APPLE_PAY_TRANSACTION_PREFIX .
+                        EmerchantpayConfig::APPLE_PAY_TYPE_AUTHORIZE,
+                        $this->getCheckoutConfig()[SdkSettingKeys::TRANSACTION_TYPES]
+                    );
+                }
+                if ($action === ActionAttributes::ACTION_REFUND) {
+                    return in_array(
+                        EmerchantpayConfig::APPLE_PAY_TRANSACTION_PREFIX .
+                        EmerchantpayConfig::APPLE_PAY_TYPE_SALE,
+                        $this->getCheckoutConfig()[SdkSettingKeys::TRANSACTION_TYPES]
                     );
                 }
                 break;
