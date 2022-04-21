@@ -60,9 +60,14 @@ class SdkSettingKeys
     const TRANSACTION_TYPES = 'transaction_types';
 
     /**
-     * Genesis WPF Chekcout Language
+     * Genesis WPF Checkout Language
      */
     const CHECKOUT_LANGUAGE = 'checkout_language';
+
+    /**
+     * Genesis WPF Tokenization
+     */
+    const WPF_TOKENIZATION = 'wpf_tokenization';
 
     /**
      * Get All available setting keys
@@ -77,7 +82,8 @@ class SdkSettingKeys
             self::PASSWORD,
             self::TOKEN,
             self::TRANSACTION_TYPES,
-            self::CHECKOUT_LANGUAGE
+            self::CHECKOUT_LANGUAGE,
+            self::WPF_TOKENIZATION
         ];
     }
 }

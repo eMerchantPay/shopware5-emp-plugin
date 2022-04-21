@@ -126,7 +126,8 @@ class TransactionTree
             $tree[] = self::addNodeData($transaction);
 
             // Build Branches and Leaves
-            self::buildReferences($tree[end(array_keys($tree))], $transactions);
+            $treeKeys = array_keys($tree);
+            self::buildReferences($tree[end($treeKeys)], $transactions);
         }
 
         return $tree;
@@ -167,8 +168,9 @@ class TransactionTree
         foreach ($transactions as $transaction) {
             if ($transaction->getReferenceId() === $node[self::DATA_UNIQUE_ID]) {
                 $node[self::BRANCH_NODE][] = self::addNodeData($transaction);
+                $nodeKeys = array_keys($node[self::BRANCH_NODE]);
                 self::buildReferences(
-                    $node[self::BRANCH_NODE][end(array_keys($node[self::BRANCH_NODE]))],
+                    $node[self::BRANCH_NODE][end($nodeKeys)],
                     $transactions
                 );
             }

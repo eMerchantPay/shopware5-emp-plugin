@@ -24,6 +24,7 @@ use EMerchantPay\Components\Constants\EmerchantpayPaymentAttributes;
 use EMerchantPay\Components\Constants\SdkSettingKeys;
 use EMerchantPay\Components\Models\PaymentData;
 use EMerchantPay\Components\Services\EmerchantpayConfig;
+use EMerchantPay\Components\Services\WpfTokenizationService;
 use EMerchantPay\Models\Transaction\Repository;
 use EMerchantPay\Models\Transaction\Transaction;
 use Genesis\API\Constants\Payment\Methods as PproMethods;
@@ -42,6 +43,22 @@ use Genesis\Utils\Currency;
 class CheckoutService extends SdkService
 {
     /**
+     * @var WpfTokenizationService
+     */
+    private $wpfTokenizationService;
+
+    public function __construct(
+        $configService,
+        $pluginName,
+        $pluginLogger,
+        $modelsManager,
+        WpfTokenizationService $wpfTokenizationService
+    ) {
+        $this->wpfTokenizationService = $wpfTokenizationService;
+        parent::__construct($configService, $pluginName, $pluginLogger, $modelsManager);
+    }
+
+    /**
      * The Method
      *
      * @return string
@@ -59,10 +76,12 @@ class CheckoutService extends SdkService
      */
     public function setGenesisRequestProperties(PaymentData $paymentData)
     {
+        $wpfTokenizationService = $this->wpfTokenizationService;
+
         $transactionId = $this->generateTransactionId(self::PLATFORM_TRANSACTION_PREFIX);
 
-        $this->genesis
-            ->request()
+        $request = $this->genesis->request();
+        $request
             ->setTransactionId($transactionId)
             ->setUsage('Payment via ' . $this->getShopName())
             ->setAmount($paymentData->getAmount())
@@ -112,6 +131,17 @@ class CheckoutService extends SdkService
             ->setShippingState($paymentData->getShippingState())
             ->setShippingCountry($paymentData->getShippingCountry())
             ->setLanguage($this->getConfig()[SdkSettingKeys::CHECKOUT_LANGUAGE]);
+
+        if ($this->getConfig()[SdkSettingKeys::WPF_TOKENIZATION] === 'yes') {
+            $request->setRememberCard('true');
+            $request->setConsumerId(
+                $wpfTokenizationService->getConsumerId(
+                    $this->getShopwareUserId(),
+                    $paymentData->getEmail(),
+                    $this->getMethod()
+                )
+            );
+        }
 
         $this->prepareTransactionTypes();
 

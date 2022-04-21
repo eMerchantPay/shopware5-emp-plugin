@@ -50,6 +50,7 @@ class Shopware_Controllers_Frontend_EmerchantpayCheckoutPayment extends Frontend
      */
     public function payAction()
     {
+        $tokenizationHelper = $this->container->get('emerchantpay.wpf_tokenization_service');
         // Process request
         try {
             // Load the Payment Data
@@ -134,6 +135,10 @@ class Shopware_Controllers_Frontend_EmerchantpayCheckoutPayment extends Frontend
             $modelManager = $this->container->get('models');
             $modelManager->persist($transactionModel);
             $modelManager->flush();
+
+            if (isset($response->consumer_id) && !empty($response->consumer_id)) {
+                $tokenizationHelper->saveConsumerIdToDb($this->getShopwareUserId(), $response->consumer_id);
+            }
 
             $this->redirect($response->redirect_url);
         } catch (\Genesis\Exceptions\Exception $e) {

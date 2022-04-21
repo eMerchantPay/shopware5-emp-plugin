@@ -26,6 +26,7 @@ use Shopware\Components\Plugin;
 use Shopware\Components\Plugin\Context\ActivateContext;
 use Shopware\Components\Plugin\Context\DeactivateContext;
 use Shopware\Components\Plugin\Context\InstallContext;
+use Shopware\Components\Plugin\Context\UpdateContext;
 use Shopware\Components\Plugin\Context\UninstallContext;
 use Shopware\Models\Payment\Payment;
 
@@ -82,6 +83,19 @@ class EMerchantPay extends Plugin
         ];
 
         $installer->createOrUpdate($context->getPlugin(), $options);
+
+        $this->addCustomerAttributes();
+    }
+
+    /**
+     * @param UpdateContext $context
+     * @return void
+     */
+    public function update(UpdateContext $context)
+    {
+        $this->addCustomerAttributes();
+        $this->addWpfTokenizationOptionDefaults();
+        $context->scheduleClearCache(InstallContext::CACHE_LIST_DEFAULT);
     }
 
     /**
@@ -93,6 +107,7 @@ class EMerchantPay extends Plugin
 
         if (false === $context->keepUserData()) {
             $this->removeDatabase();
+            $this->removeCustomerAttributes();
         }
 
         $context->scheduleClearCache(InstallContext::CACHE_LIST_ALL);
@@ -201,5 +216,69 @@ class EMerchantPay extends Plugin
                 "VALUES ('${options}', '${optionValues}', '${method}')";
             $this->container->get('dbal_connection')->exec($sql);
         }
+    }
+
+    /**
+     * Remove customers attributes and catch exception if new version is copied over the old one
+     *
+     * @return void
+     */
+    private function removeCustomerAttributes()
+    {
+        try {
+            $service = $this->container->get('shopware_attribute.crud_service');
+            $service->delete('s_user_attributes', 'emp_token_consumer_id');
+        } catch (\Exception $exception) {
+            $logger = $this->container->get('pluginlogger');
+            $logger->debug('Ignore missing user\'s attribute in the DB.');
+        }
+
+        $this->clearMetaDataCache();
+    }
+
+    /**
+     * @return void
+     */
+    private function addCustomerAttributes()
+    {
+        // Add consumer_id to the Users' record via attribute
+        $service = $this->container->get('shopware_attribute.crud_service');
+        $service->update('s_user_attributes', 'emp_token_consumer_id', 'string');
+
+        $this->clearMetaDataCache();
+        $this->container->get('models')->generateAttributeModels(['s_user_attributes']);
+    }
+
+    /**
+     * Add / Update checkout tokenization option in Emerchantpay Database Tables
+     */
+    private function addWpfTokenizationOptionDefaults()
+    {
+        $checkoutConfigs          = MethodConfigs::getConfigCheckoutData();
+        $wpfTokenizationConfigKey = array_search(
+            'wpf_tokenization',
+            array_column($checkoutConfigs, 'options')
+        );
+
+        $wpfTokenizationConfig = $checkoutConfigs[$wpfTokenizationConfigKey];
+
+        $options      = $wpfTokenizationConfig['options'];
+        $optionValues = $wpfTokenizationConfig['optionValues'];
+        $method       = $wpfTokenizationConfig['methods'];
+        $sql = "INSERT IGNORE INTO emerchantpay_config_methods (options, optionValues, methods) " .
+            "VALUES ('${options}', '${optionValues}', '${method}')";
+        $this->container->get('dbal_connection')->exec($sql);
+    }
+
+    /**
+     * Clears MetaData cache
+     *
+     * @return void
+     */
+    private function clearMetaDataCache()
+    {
+        $modelManager  = $this->container->get('models');
+        $metaDataCache = $modelManager->getConfiguration()->getMetadataCacheImpl();
+        $metaDataCache->deleteAll();
     }
 }

@@ -5,7 +5,7 @@
     <label lang="en">emerchantpay Payment</label>
     <label lang="de">emerchantpay Payment</label>
 
-    <version>1.0.4</version>
+    <version>1.1.0</version>
     <copyright>(c) emerchantpay Ltd.</copyright>
     <license>GNU</license>
     <link>https://www.emerchantpay.com</link>
@@ -65,13 +65,26 @@
         ]]>
     </description>
 
+    <changelog version="1.1.0">
+        <changes lang="en">
+            <![CDATA[
+            <p><b>Features</b>:</p>
+            <div><ul>
+                <li>- Added config option for enabling Web Payment Form Tokenization service. Please, contact your account manager before enabling tokenization</li>
+                <li>- Added EMP logo for plugin list page</li>
+                <li>- Added support for php 8.0</li>
+            </ul></div>
+            ]]>
+        </changes>
+    </changelog>
+
     <changelog version="1.0.4">
         <changes lang="en">
             <![CDATA[
             <p><b>Features</b>:</p>
             <div><ul>
                 <li>- Updated Genesis PHP SDK library to version 1.20.1</li>
-                <li>- Updated Card.js to the latests</li>
+                <li>- Updated Card.js to the latest</li>
                 <li>- Added new transaction type <b>Apple Pay</b> via Web Payment Form with support of its methods
                     <ul>
                         <li>&emsp;<b>Authorize</b></li>

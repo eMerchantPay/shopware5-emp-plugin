@@ -25,6 +25,7 @@
             <argument>%e_merchant_pay.plugin_name%</argument>
             <argument type="service" id="emerchantpay.plugin_logger_service"/>
             <argument type="service" id="models"/>
+            <argument type="service" id="emerchantpay.wpf_tokenization_service"/>
         </service>
 
         <service id="emerchantpay.genesis_direct_service"
@@ -61,6 +62,13 @@
             <argument>%e_merchant_pay.plugin_name%</argument>
             <argument type="service" id="emerchantpay.plugin_logger_service"/>
             <argument type="service" id="models" />
+        </service>
+
+        <service id="emerchantpay.wpf_tokenization_service"
+                 class="EMerchantPay\Components\Services\WpfTokenizationService"
+                 public="true">
+            <argument type="service" id="models" />
+            <argument type="service" id="emerchantpay.plugin_logger_service"/>
         </service>
 
         <service id="emerchantpay.transform_credit_card_data"

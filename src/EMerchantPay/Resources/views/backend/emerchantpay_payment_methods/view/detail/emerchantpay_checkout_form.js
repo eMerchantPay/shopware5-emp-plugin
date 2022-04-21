@@ -90,6 +90,17 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.view.detail.EmerchantpayChe
                 allowBlank: false
             },
             {
+                xtype: 'combobox',
+                fieldLabel: '{s name=emerchantpay/config/checkout/wpf_tokenization}WPF Tokenization{/s}',
+                name: 'wpf_tokenization',
+                translatable: false,
+                store: Ext.create('Shopware.apps.EmerchantpayPaymentMethods.store.EmerchantpayWPFTokenizationStore'),
+                displayField: 'option',
+                valueField: 'value',
+                value: 'no',
+                allowBlank: false
+            },
+            {
                 xtype: 'hiddenfield',
                 name: 'method',
                 value: 'checkout'

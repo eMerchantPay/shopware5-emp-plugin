@@ -6,7 +6,7 @@ This is a Payment Module for Shopware 5, that gives you the ability to process p
 Requirements
 ------------
 
-* Shopware 5 (Tested up to: __5.7.7__)
+* Shopware 5 (Tested up to: __5.7.8__)
 * [GenesisPHP v1.20.1](https://github.com/GenesisGateway/genesis_php/releases/tag/1.20.1)
 * PCI-certified server in order to use ```emerchantpay Direct```
 

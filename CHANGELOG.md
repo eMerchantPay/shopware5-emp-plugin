@@ -1,6 +1,13 @@
 Change Log
 ---------------------
 
+__1.1.0__
+-----
+* Added Checkout Method config option for enabling Web Payment Form Tokenization service**. Please, contact your account manager before enabling tokenization. (#546)
+* Added plugin logo visible inside the Shopware plugins list page (#844)
+* Added PHP 8.X support (#845)
+* Tested up to Shopware 5.7.8 (#857)
+
 __1.0.4__
 -----
 * Updated Genesis PHP SDK library to version 1.20.1 (#806)

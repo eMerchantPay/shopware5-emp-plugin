@@ -64,6 +64,11 @@ class MethodConfigs
                 'options'      => 'checkout_language',
                 'optionValues' => 'en',
                 'methods'      => 'checkout'
+            ],
+            [
+                'options'      => 'wpf_tokenization',
+                'optionValues' => 'no',
+                'methods'      => 'checkout'
             ]
         ];
     }
