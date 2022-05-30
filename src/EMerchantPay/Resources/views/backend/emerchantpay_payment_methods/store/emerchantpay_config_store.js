@@ -12,6 +12,7 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.store.EmerchantpayConfigSto
         { name: 'test_mode', type: 'string' },
         { name: 'token', type: 'string' },
         { name: 'transaction_types', type: 'array' },
+        { name: 'bank_codes', type: 'array' },
         { name: 'checkout_language', type: 'string' },
         { name: 'wpf_tokenization', type: 'string' }
     ],

@@ -95,6 +95,7 @@ class EMerchantPay extends Plugin
     {
         $this->addCustomerAttributes();
         $this->addWpfTokenizationOptionDefaults();
+        $this->addBankCodeOptionDefaults();
         $context->scheduleClearCache(InstallContext::CACHE_LIST_DEFAULT);
     }
 
@@ -265,6 +266,29 @@ class EMerchantPay extends Plugin
         $options      = $wpfTokenizationConfig['options'];
         $optionValues = $wpfTokenizationConfig['optionValues'];
         $method       = $wpfTokenizationConfig['methods'];
+        $sql = "INSERT IGNORE INTO emerchantpay_config_methods (options, optionValues, methods) " .
+            "VALUES ('${options}', '${optionValues}', '${method}')";
+        $this->container->get('dbal_connection')->exec($sql);
+    }
+
+    /**
+     * Add / Update checkout bank_code option in Emerchantpay Database Tables
+     *
+     * @return void
+     */
+    private function addBankCodeOptionDefaults()
+    {
+        $checkoutConfigs   = MethodConfigs::getConfigCheckoutData();
+        $bankCodeConfigKey = array_search(
+            'bank_codes',
+            array_column($checkoutConfigs, 'options')
+        );
+
+        $bankCodeConfig    = $checkoutConfigs[$bankCodeConfigKey];
+
+        $options           = $bankCodeConfig['options'];
+        $optionValues      = $bankCodeConfig['optionValues'];
+        $method            = $bankCodeConfig['methods'];
         $sql = "INSERT IGNORE INTO emerchantpay_config_methods (options, optionValues, methods) " .
             "VALUES ('${options}', '${optionValues}', '${method}')";
         $this->container->get('dbal_connection')->exec($sql);

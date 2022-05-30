@@ -25,6 +25,7 @@ use EMerchantPay\Components\Services\EmerchantpayConfig;
 use EMerchantPay\Components\Services\EmerchantpayLogger;
 use EMerchantPay\Components\Models\PaymentData;
 use EMerchantPay\Models\Transaction\Transaction;
+use Genesis\API\Constants\Banks;
 use Genesis\API\Constants\Endpoints;
 use Genesis\API\Constants\Environments;
 use Genesis\API\Constants\Transaction\States;
@@ -685,6 +686,18 @@ abstract class SdkService
             Types::SDD_INIT_RECURRING_SALE,
             Types::INIT_RECURRING_SALE,
             Types::INIT_RECURRING_SALE_3D
+        ];
+    }
+
+    /**
+     * All available Bank codes for Online banking transaction type
+     *
+     * @return array
+     */
+    public static function getAvailableBankCodes()
+    {
+        return [
+            Banks::CPI => 'Interac Combined Pay-in',
         ];
     }
 }

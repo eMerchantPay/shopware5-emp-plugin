@@ -33,6 +33,7 @@ use Genesis\API\Notification;
 use Genesis\API\Request\WPF\Create;
 use Genesis\Genesis;
 use Genesis\Utils\Currency;
+use Genesis\Utils\Common as CommonUtils;
 
 /**
  * The Checkout Service delivers Checkout Method functionality
@@ -237,6 +238,18 @@ class CheckoutService extends SdkService
                     $parameters = [
                         'user_id' => $this->getShopwareUserId()
                     ];
+                    break;
+                case Types::ONLINE_BANKING_PAYIN:
+                    //Remove empty placeholder if no bank code is selected
+                    $selectedBankCodes = array_filter($this->getConfig()[SdkSettingKeys::BANK_CODES]);
+                    if (CommonUtils::isValidArray($selectedBankCodes)) {
+                        $parameters['bank_codes'] = array_map(
+                            function ($value) {
+                                return ['bank_code' => $value];
+                            },
+                            $selectedBankCodes
+                        );
+                    }
                     break;
             }
 

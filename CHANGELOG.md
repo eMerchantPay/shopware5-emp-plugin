@@ -1,5 +1,9 @@
 Change Log
 ---------------------
+__1.1.1__
+-----
+* Added Interac Bank code to Online banking transaction type (#882)
+* Tested up to Shopware 5.7.11 (#895)
 
 __1.1.0__
 -----

@@ -19,6 +19,8 @@
 
 namespace EMerchantPay\Components\Constants;
 
+use Genesis\Utils\Common as CommonUtils;
+
 /**
  * Contains constants used for Plugin Settings
  *
@@ -70,20 +72,17 @@ class SdkSettingKeys
     const WPF_TOKENIZATION = 'wpf_tokenization';
 
     /**
+     * Payment methods for Online banking transaction type
+     */
+    const BANK_CODES = 'bank_codes';
+
+    /**
      * Get All available setting keys
      *
      * @return array
      */
     public static function getAll()
     {
-        return [
-            self::MODE,
-            self::USERNAME,
-            self::PASSWORD,
-            self::TOKEN,
-            self::TRANSACTION_TYPES,
-            self::CHECKOUT_LANGUAGE,
-            self::WPF_TOKENIZATION
-        ];
+        return CommonUtils::getClassConstants(self::class);
     }
 }

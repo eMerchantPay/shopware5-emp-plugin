@@ -115,7 +115,7 @@ class Methods extends ModelEntity
 
         $this->optionValues = $value;
 
-        if ($this->options === 'transaction_types') {
+        if (in_array($this->options, ['transaction_types', 'bank_codes'])) {
             $this->optionValues = serialize($this->optionValues);
         }
     }
@@ -125,7 +125,7 @@ class Methods extends ModelEntity
      */
     public function getOptionValue()
     {
-        if ($this->options === 'transaction_types') {
+        if (in_array($this->options, ['transaction_types', 'bank_codes'])) {
             return unserialize($this->optionValues);
         }
 

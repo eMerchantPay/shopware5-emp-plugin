@@ -116,6 +116,7 @@ Supported Transactions
     * __InstaDebit Payin__
     * __InstantTransfer__
     * __Itau__
+    * __Interac Combined Pay-in__
     * __Multibanco__
     * __MyBank__
     * __OnlineBanking__

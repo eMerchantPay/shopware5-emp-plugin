@@ -61,6 +61,11 @@ class MethodConfigs
                 'methods'      => 'checkout'
             ],
             [
+                'options'      => 'bank_codes',
+                'optionValues' => serialize(''),
+                'methods'      => 'checkout'
+            ],
+            [
                 'options'      => 'checkout_language',
                 'optionValues' => 'en',
                 'methods'      => 'checkout'

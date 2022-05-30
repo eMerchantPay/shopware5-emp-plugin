@@ -5,7 +5,7 @@
     <label lang="en">emerchantpay Payment</label>
     <label lang="de">emerchantpay Payment</label>
 
-    <version>1.1.0</version>
+    <version>1.1.1</version>
     <copyright>(c) emerchantpay Ltd.</copyright>
     <license>GNU</license>
     <link>https://www.emerchantpay.com</link>
@@ -64,6 +64,18 @@
         </table>
         ]]>
     </description>
+
+    <changelog version="1.1.1">
+        <changes lang="en">
+            <![CDATA[
+            <p><b>Features</b>:</p>
+            <div><ul>
+                <li>- Added Bank Code option in the emerchantpay Checkout payment config used by Online Banking Transaction Type</li>
+                <li>- Tested up to Shopware 5.7.11</li>
+            </ul></div>
+            ]]>
+        </changes>
+    </changelog>
 
     <changelog version="1.1.0">
         <changes lang="en">

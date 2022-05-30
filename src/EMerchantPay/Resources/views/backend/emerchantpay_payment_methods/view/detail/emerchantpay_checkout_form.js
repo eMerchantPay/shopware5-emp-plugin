@@ -80,6 +80,25 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.view.detail.EmerchantpayChe
             },
             {
                 xtype: 'combobox',
+                getSubmitValue: function(){
+                    let value = this.getValue();
+                    if(Ext.isEmpty(value)) {
+                        return '';
+                    }
+                    return value;
+                },
+                fieldLabel: '{s name=emerchantpay/config/checkout/bank_codes}Bank codes for Online banking{/s}',
+                name: 'bank_codes[]',
+                translatable: false,
+                store: Ext.create('Shopware.apps.EmerchantpayPaymentMethods.store.EmerchantpayCheckoutBankCodesStore').load(),
+                displayField: 'option',
+                valueField: 'value',
+                value: [],
+                multiSelect: true,
+                allowBlank: true
+            },
+            {
+                xtype: 'combobox',
                 fieldLabel: '{s name=emerchantpay/config/checkount/checkout_language}Checkout Language{/s}',
                 name: 'checkout_language',
                 translatable: false,

@@ -30,6 +30,7 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.controller.EmerchantpayPaym
             var checkoutStore = me.getConfigStore('checkout');
             checkoutStore.on('load', function () {
                 me.normalizeTransactionTypes(checkoutStore);
+                me.normalizeBankCodes(checkoutStore);
                 emerchantpayCheckoutForm.loadRecord(checkoutStore.getAt(0));
                 emerchantpayCheckoutForm.enable();
             });
@@ -110,6 +111,14 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.controller.EmerchantpayPaym
         store.each(function(record, index){
             var types = record.get('transaction_types');
             record.set('transaction_types[]', types);
+            record.commit();
+        });
+    },
+
+    normalizeBankCodes: function (store) {
+        store.each(function(record, index){
+            var types = record.get('bank_codes');
+            record.set('bank_codes[]', types);
             record.commit();
         });
     },
