@@ -27,7 +27,7 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.controller.EmerchantpayPaym
         if (record.data.name === 'emerchantpay_checkout') {
             emerchantpayCheckoutForm.show();
             emerchantpayCheckoutForm.disable();
-            var checkoutStore = me.getConfigStore('checkout');
+            var checkoutStore = me.getEmpConfigStore('checkout');
             checkoutStore.on('load', function () {
                 me.normalizeTransactionTypes(checkoutStore);
                 me.normalizeBankCodes(checkoutStore);
@@ -39,7 +39,7 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.controller.EmerchantpayPaym
         if (record.data.name === 'emerchantpay_direct') {
             emerchantpayDirectForm.show();
             emerchantpayDirectForm.disable();
-            var directStore = me.getConfigStore('direct');
+            var directStore = me.getEmpConfigStore('direct');
             directStore.on('load', function () {
                 me.normalizeTransactionTypes(directStore);
                 emerchantpayDirectForm.loadRecord(directStore.getAt(0));
@@ -99,7 +99,7 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.controller.EmerchantpayPaym
         me.callParent(arguments);
     },
 
-    getConfigStore: function (method) {
+    getEmpConfigStore: function (method) {
         return Ext.create('Shopware.apps.EmerchantpayPaymentMethods.store.EmerchantpayConfigStore').load({
             params: {
                 method: method

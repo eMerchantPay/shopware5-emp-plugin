@@ -5,7 +5,7 @@
     <label lang="en">emerchantpay Payment</label>
     <label lang="de">emerchantpay Payment</label>
 
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <copyright>(c) emerchantpay Ltd.</copyright>
     <license>GNU</license>
     <link>https://www.emerchantpay.com</link>
@@ -64,6 +64,19 @@
         </table>
         ]]>
     </description>
+
+    <changelog version="1.1.2">
+        <changes lang="en">
+            <![CDATA[
+            <p><b>Features</b>:</p>
+            <div><ul>
+                <li>- Added Pix Transaction Type via Web Payment Form</li>
+                <li>- Updated Genesis PHP lib to version 1.21.2</li>
+                <li>- Tested up to Shopware 5.7.13</li>
+            </ul></div>
+            ]]>
+        </changes>
+    </changelog>
 
     <changelog version="1.1.1">
         <changes lang="en">

@@ -1,69 +1,75 @@
 Change Log
 ---------------------
+__1.1.2__
+-----
+* Added Pix Transaction Type via Web Payment Form
+* Updated Genesis PHP lib to version 1.21.2
+* Tested up to Shopware 5.7.13
+
 __1.1.1__
 -----
-* Added Interac Bank code to Online banking transaction type (#882)
-* Tested up to Shopware 5.7.11 (#895)
+* Added Interac Bank code to Online banking transaction type
+* Tested up to Shopware 5.7.11
 
 __1.1.0__
 -----
-* Added Checkout Method config option for enabling Web Payment Form Tokenization service**. Please, contact your account manager before enabling tokenization. (#546)
-* Added plugin logo visible inside the Shopware plugins list page (#844)
-* Added PHP 8.X support (#845)
-* Tested up to Shopware 5.7.8 (#857)
+* Added Checkout Method config option for enabling Web Payment Form Tokenization service**. Please, contact your account manager before enabling tokenization.
+* Added plugin logo visible inside the Shopware plugins list page
+* Added PHP 8.X support
+* Tested up to Shopware 5.7.8
 
 __1.0.4__
 -----
-* Updated Genesis PHP SDK library to version 1.20.1 (#806)
-* Updated Card.js to the latests (#806)
-* Added new transaction type Apple Pay via Web Payment Form with support of its methods (#807):
+* Updated Genesis PHP SDK library to version 1.20.1
+* Updated Card.js to the latests
+* Added new transaction type Apple Pay via Web Payment Form with support of its methods:
   * Authorize
   * Sale
 
 __1.0.3__
 -----
-* Updated Genesis PHP SDK library to version 1.20.0 (#758)
-* Updated Card.js to the latests (#758)
-* Added new transaction type PayPal via Web Payment Form with support of its methods (#759):
+* Updated Genesis PHP SDK library to version 1.20.0
+* Updated Card.js to the latests
+* Added new transaction type PayPal via Web Payment Form with support of its methods:
   * Authorize
   * Sale
   * Express
-* Updated Google Pay transaction type via Web Payment Form with the latest requirements from the payment gateway (#783)
+* Updated Google Pay transaction type via Web Payment Form with the latest requirements from the payment gateway
 
 __1.0.2__
 -----
-* Updated Genesis PHP SDK library to version 1.19.2 (#728)
-* Updated Card.js JavaScript plugin used by the Direct Method (#728)
-* Added support for Google Pay transaction type via Checkout Method (Web Payment Form) (#727)
+* Updated Genesis PHP SDK library to version 1.19.2
+* Updated Card.js JavaScript plugin used by the Direct Method
+* Added support for Google Pay transaction type via Checkout Method (Web Payment Form)
 
 __1.0.1__
 -----
-* Added new transaction type Post Finance available in the emerchantpay Checkout Method (#520)
-* Allowed reference action Void for the following transaction types (#520):
+* Added new transaction type Post Finance available in the emerchantpay Checkout Method
+* Allowed reference action Void for the following transaction types:
   * Sale
   * Sale (3D-Secure)
-* Added Plugin data removal upon uninstall (#510)
-* Added mechanic for execution of the following transaction types (#513):
+* Added Plugin data removal upon uninstall
+* Added mechanic for execution of the following transaction types:
   * Trustly Sale
   * InstaDebit Payin
   * iDebit Payin
-* Fixed Plugin Config Methods Database Schema (#519)
-* Fixed the transaction ID generation (#515)
+* Fixed Plugin Config Methods Database Schema
+* Fixed the transaction ID generation
 
 __1.0.0__
 -----
-* Added Initial emerchantpay Plugin Structure (#302)
-* Added Configurations for Direct and Checkout Methods (#389, #504)
-* Added GenesisPHP SDK library (#391)
-* Added Genesis SDK Service (#393)
-* Added Plugin Logging Service (#394)
-* Added Checkout and Direct Database Tables (#396)
-* Added custom Front End Error Page Controller (#397)
-* Added Payment Data Handler (#398)
-* Added Checkout Payment (#403)
-* Added Direct Payment (#418)
-* Added Return URLs Controller and functionality (#422)
-* Added functionality for storing the payment transactions' database records (#423)
-* Added Genesis Notification handler (#451)
-* Added decoration to the Order Details view (#492)
-* Added Reference transaction functionality (#497)
+* Added Initial emerchantpay Plugin Structure
+* Added Configurations for Direct and Checkout Methods
+* Added GenesisPHP SDK library
+* Added Genesis SDK Service
+* Added Plugin Logging Service
+* Added Checkout and Direct Database Tables
+* Added custom Front End Error Page Controller
+* Added Payment Data Handler
+* Added Checkout Payment
+* Added Direct Payment
+* Added Return URLs Controller and functionality
+* Added functionality for storing the payment transactions' database records
+* Added Genesis Notification handler
+* Added decoration to the Order Details view
+* Added Reference transaction functionality
