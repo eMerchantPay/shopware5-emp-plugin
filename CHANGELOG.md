@@ -1,5 +1,15 @@
 Change Log
 ---------------------
+__1.2.0__
+-----
+* Added support for 3DSv2 params via the emerchantpay Checkout method
+* Added support for SCA Exemption settings via the emerchantpay Checkout method
+* Added 3DSv2 parameters handling via Web Payment Form
+* Added SCA Exemption parameters handling via Web Payment Form
+* Updated Genesis PHP library to version 1.21.4
+* Removed emerchantpay Direct Payment Method
+* Fixed compatibility issue with PHP 8.0 and Shopware 5.7.16
+
 __1.1.2__
 -----
 * Added Pix Transaction Type via Web Payment Form

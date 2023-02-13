@@ -25,6 +25,7 @@ use EMerchantPay\Components\Constants\SdkSettingKeys;
 use EMerchantPay\Components\Models\PaymentData;
 use EMerchantPay\Components\Services\EmerchantpayConfig;
 use EMerchantPay\Components\Services\WpfTokenizationService;
+use EMerchantPay\Components\Services\ThreedsService;
 use EMerchantPay\Models\Transaction\Repository;
 use EMerchantPay\Models\Transaction\Transaction;
 use Genesis\API\Constants\Payment\Methods as PproMethods;
@@ -34,6 +35,9 @@ use Genesis\API\Request\WPF\Create;
 use Genesis\Genesis;
 use Genesis\Utils\Currency;
 use Genesis\Utils\Common as CommonUtils;
+use Genesis\API\Constants\Transaction\Parameters\Threeds\V2\MerchantRisk\DeliveryTimeframes;
+use Genesis\API\Constants\Transaction\Parameters\Threeds\V2\CardHolderAccount\RegistrationIndicators;
+use Genesis\API\Constants\Transaction\Parameters\Threeds\V2\Purchase\Categories as ThreedsV2Categories;
 
 /**
  * The Checkout Service delivers Checkout Method functionality
@@ -48,14 +52,21 @@ class CheckoutService extends SdkService
      */
     private $wpfTokenizationService;
 
+    /**
+     * @var ThreedsService
+     */
+    private $threedsService;
+
     public function __construct(
         $configService,
         $pluginName,
         $pluginLogger,
         $modelsManager,
-        WpfTokenizationService $wpfTokenizationService
+        WpfTokenizationService $wpfTokenizationService,
+        ThreedsService $threedsService
     ) {
         $this->wpfTokenizationService = $wpfTokenizationService;
+        $this->threedsService         = $threedsService;
         parent::__construct($configService, $pluginName, $pluginLogger, $modelsManager);
     }
 
@@ -73,7 +84,9 @@ class CheckoutService extends SdkService
      * The actual Request attributes
      *
      * @param PaymentData $paymentData
+     *
      * @return Genesis
+     * @throws \Exception
      */
     public function setGenesisRequestProperties(PaymentData $paymentData)
     {
@@ -143,6 +156,12 @@ class CheckoutService extends SdkService
                 )
             );
         }
+
+        if ($this->getConfig()[SdkSettingKeys::THREEDS_OPTION] === self::THREEDS_OPTION_ENABLED) {
+            $this->prepareThreedsV2Params($paymentData);
+        }
+
+        $this->addScaExemptionParameters();
 
         $this->prepareTransactionTypes();
 
@@ -465,4 +484,103 @@ class CheckoutService extends SdkService
 
         return $result;
     }
+
+    /**
+     * Prepare Threeds V2 request
+     *
+     * @param $paymentData
+     *
+     * @throws \Exception
+     */
+    private function prepareThreedsV2Params($paymentData)
+    {
+        $this->threedsService->initData($paymentData);
+
+        /** @var Create $request */
+        $request = $this->genesis->request();
+
+        $request
+            // Challenge Indicator
+            ->setThreedsV2ControlChallengeIndicator(
+                $this->getConfig()[SdkSettingKeys::CHALLENGE_INDICATOR]
+            )
+            ->setThreedsV2PurchaseCategory(
+                $this->threedsService->hasPhysicalProduct()
+                ? ThreedsV2Categories::GOODS
+                : ThreedsV2Categories::SERVICE
+            )
+            ->setThreedsV2MerchantRiskShippingIndicator(
+                $this->threedsService->fetchShippingIndicator()
+            )
+            ->setThreedsV2MerchantRiskDeliveryTimeframe(
+                $this->threedsService->hasPhysicalProduct()
+                ? DeliveryTimeframes::ANOTHER_DAY
+                : DeliveryTimeframes::ELECTRONICS
+            )
+            ->setThreedsV2MerchantRiskReorderItemsIndicator(
+                $this->threedsService->fetchReorderItemsIndicator()
+            )
+            ->setThreedsV2CardHolderAccountCreationDate(
+                $this->threedsService->customerDateCreated()
+            )
+            ->setThreedsV2CardHolderAccountUpdateIndicator(
+                $this->threedsService->fetchUpdateIndicator()
+            )
+            ->setThreedsV2CardHolderAccountLastChangeDate(
+                $this->threedsService->getLastChangedDate()
+            )
+            ->setThreedsV2CardHolderAccountPasswordChangeIndicator(
+                $this->threedsService->fetchPasswordChangeIndicator()
+            )
+            ->setThreedsV2CardHolderAccountPasswordChangeDate(
+                $this->threedsService->getPasswordChangedDate()
+            )
+            ->setThreedsV2CardHolderAccountShippingAddressUsageIndicator(
+                $this->threedsService->fetchShippingAddressUsageIndicator()
+            )
+            ->setThreedsV2CardHolderAccountShippingAddressDateFirstUsed(
+                $this->threedsService->getFirstUseOfShippingAddress()
+            )
+            ->setThreedsV2CardHolderAccountTransactionsActivityLast24Hours(
+                $this->threedsService->countOrdersPeriod(
+                    ThreedsService::ACTIVITY_24_HOURS
+                )
+            )
+            ->setThreedsV2CardHolderAccountTransactionsActivityPreviousYear(
+                $this->threedsService->countOrdersPeriod(
+                    ThreedsService::ACTIVITY_1_YEAR
+                )
+            )
+            ->setThreedsV2CardHolderAccountPurchasesCountLast6Months(
+                $this->threedsService->countOrdersPeriod(
+                    ThreedsService::ACTIVITY_6_MONTHS
+                )
+            )
+            ->setThreedsV2CardHolderAccountRegistrationDate(
+                $this->threedsService->getProfileFirstOrderDate()
+            )
+            ->setThreedsV2CardHolderAccountRegistrationIndicator(
+                $this->threedsService->fetchRegistrationIndicator()
+            );
+    }
+
+    /**
+     * Add SCA Exemption parameter to Genesis Request
+     *
+     * @return Genesis
+     */
+    private function addScaExemptionParameters()
+    {
+        $request = $this->genesis->request();
+        $wpfAmount = (float)$request->getAmount();
+        $scaExemption = $this->getConfig()[SdkSettingKeys::SCA_EXEMPTION_OPTION];
+        $scaExemptionValue = (float)$this->getConfig()[SdkSettingKeys::SCA_EXEMPTION_AMOUNT];
+
+        if ($wpfAmount <= $scaExemptionValue) {
+            $request->setScaExemption($scaExemption);
+        }
+
+        return $this->genesis;
+    }
+
 }

@@ -56,8 +56,7 @@ class SdkSettingKeys
 
     /**
      * Genesis Transaction Types
-     *      Can be either a string or array. For Direct is used string, Checkout - array of transaction types
-     *
+     * Checkout - array of transaction types
      */
     const TRANSACTION_TYPES = 'transaction_types';
 
@@ -75,6 +74,26 @@ class SdkSettingKeys
      * Payment methods for Online banking transaction type
      */
     const BANK_CODES = 'bank_codes';
+
+    /**
+     * Genesis 3DSv2 option
+     */
+    const THREEDS_OPTION = 'threeds_option';
+
+    /**
+     * Genesis challenge indicator option
+     */
+    const CHALLENGE_INDICATOR = 'challenge_indicator';
+
+    /**
+     * Genesis SCA exemption option
+     */
+    const SCA_EXEMPTION_OPTION = 'sca_exemption_option';
+
+    /**
+     *  Genesis SCA exemption amount
+     */
+    const SCA_EXEMPTION_AMOUNT = 'sca_exemption_amount';
 
     /**
      * Get All available setting keys

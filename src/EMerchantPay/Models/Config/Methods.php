@@ -24,7 +24,7 @@ use Shopware\Components\Model\ModelEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * The Configuration Settings Model for Checkout and Direct Method
+ * The Configuration Settings Model for Checkout Method
  *
  * Class Methods
  * @package EMerchantPay\Models\Config

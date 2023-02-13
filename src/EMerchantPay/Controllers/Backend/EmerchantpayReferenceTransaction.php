@@ -21,7 +21,6 @@ use EMerchantPay\Components\Constants\ReferenceActionAttributes as ActionAttribu
 use EMerchantPay\Components\Constants\SdkSettingKeys;
 use EMerchantPay\Components\Helpers\TransactionTree;
 use EMerchantPay\Components\Methods\CheckoutService;
-use EMerchantPay\Components\Methods\DirectService;
 use EMerchantPay\Components\Services\EmerchantpayConfig;
 use Genesis\API\Constants\Transaction\States;
 use Genesis\API\Constants\Transaction\Types;
@@ -120,11 +119,6 @@ class Shopware_Controllers_Backend_EmerchantpayReferenceTransaction extends Shop
             if ($actionTransaction->getPaymentMethod() === CheckoutService::METHOD_CHECKOUT) {
                 /** @var CheckoutService $sdkService */
                 $sdkService = $this->container->get('emerchantpay.genesis_checkout_service');
-            }
-
-            if ($actionTransaction->getPaymentMethod() === DirectService::METHOD_DIRECT) {
-                /** @var DirectService $sdkService */
-                $sdkService = $this->container->get('emerchantpay.genesis_direct_service');
             }
 
             if (!isset($sdkService)) {

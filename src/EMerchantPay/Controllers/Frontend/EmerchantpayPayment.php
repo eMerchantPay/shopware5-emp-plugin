@@ -39,9 +39,6 @@ class Shopware_Controllers_Frontend_EmerchantpayPayment extends FrontendPaymentA
             case 'emerchantpay_checkout':
                 // Checkout action method. Delivers WPF Functionality
                 return $this->redirect($this->getCheckoutUrl() . $this->getUrlParameters());
-            case 'emerchantpay_direct':
-                // Direct action method. Delivers Processing Transactions Functionality
-                return $this->redirect($this->getDirectUrl() . $this->getUrlParameters());
             default:
                 return $this->redirect(['controller' => 'checkout']);
         }
@@ -106,23 +103,6 @@ class Shopware_Controllers_Frontend_EmerchantpayPayment extends FrontendPaymentA
             [
                 'controller'  => 'EmerchantpayCheckoutPayment',
                 'action'      => 'pay',
-                'forceSecure' => true
-            ]
-        );
-    }
-
-    /**
-     * Return the URL for Direct Payment Controller
-     *
-     * @return mixed
-     * @throws Exception
-     */
-    protected function getDirectUrl()
-    {
-        return $this->Front()->Router()->assemble(
-            [
-                'controller'  => 'EmerchantpayDirectPayment',
-                'action'      => 'credit_card',
                 'forceSecure' => true
             ]
         );

@@ -252,7 +252,7 @@ class Transaction extends ModelEntity
     }
 
     /**
-     * The payment method (Direct/Checkout) used for the current transaction
+     * The payment method (Checkout) used for the current transaction
      *
      * @return string
      */
@@ -262,7 +262,7 @@ class Transaction extends ModelEntity
     }
 
     /**
-     * The payment method (Direct/Checkout) used for the current transaction
+     * The payment method (Checkout) used for the current transaction
      *
      * @param string $value
      */

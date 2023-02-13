@@ -16,12 +16,11 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.view.detail.Window', {
         };
 
         me.emerchantpayCheckoutForm = Ext.create('Shopware.apps.EmerchantpayPaymentMethods.view.detail.EmerchantpayCheckoutForm');
-        me.emerchantpayDirectForm = Ext.create('Shopware.apps.EmerchantpayPaymentMethods.view.detail.EmerchantpayDirectForm');
 
         result.add([{
             xtype: 'container',
             autoRender: true,
-            title: '{s name=emerchantpay/config/title}emerchantpay Config{/s}',
+            title: '{s name="emerchantpay/config/title"}emerchantpay Config{/s}',
             name: 'emerchantpay-config',
             hidden: true,
             layout: 'fit',
@@ -32,7 +31,7 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.view.detail.Window', {
             defaults: {
                 layout: 'fit'
             },
-            items: [me.emerchantpayCheckoutForm, me.emerchantpayDirectForm]
+            items: [me.emerchantpayCheckoutForm]
         }]);
 
         return result;

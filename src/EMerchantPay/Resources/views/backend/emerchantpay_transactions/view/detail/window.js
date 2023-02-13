@@ -14,15 +14,15 @@ Ext.define('Shopware.apps.EmerchantpayTransactions.view.detail.Window', {
         var snippets = {
             columns: {
                 id: '{s name="emerchantpay/detail/id"}Id{/s}',
-                transactionId: '{s name=emerchantpay/detail/transaction_id}Transaction Id{/s}',
-                uniqueId: '{s name=emerchantpay/detail/unique_id}Unique Id{/s}',
-                status: '{s name=emerchantpay/detail/status}Status{/s}',
-                type: '{s name=emerchantpay/detail/type}Type{/s}',
-                mode: '{s name=emerchantpay/detail/mode}Mode{/s}',
-                amount: '{s name=emerchantpay/detail/amount}Amount{/s}',
-                currency: '{s name=emerchantpay/detail/currency}Currency{/s}',
-                message: '{s name=emerchantpay/detail/message}Message{/s}',
-                createdAt: '{s name=emerchantpay/detail/created_at}Created At{/s}',
+                transactionId: '{s name="emerchantpay/detail/transaction_id"}Transaction Id{/s}',
+                uniqueId: '{s name="emerchantpay/detail/unique_id"}Unique Id{/s}',
+                status: '{s name="emerchantpay/detail/status"}Status{/s}',
+                type: '{s name="emerchantpay/detail/type"}Type{/s}',
+                mode: '{s name="emerchantpay/detail/mode"}Mode{/s}',
+                amount: '{s name="emerchantpay/detail/amount"}Amount{/s}',
+                currency: '{s name="emerchantpay/detail/currency"}Currency{/s}',
+                message: '{s name="emerchantpay/detail/message"}Message{/s}',
+                createdAt: '{s name="emerchantpay/detail/created_at"}Created At{/s}',
                 updatedAt: '{s name="emerchantpay/detail/updated_at"}Updated At{/s}'
             },
             buttons: {
@@ -51,7 +51,7 @@ Ext.define('Shopware.apps.EmerchantpayTransactions.view.detail.Window', {
             var payment = me.record.getPayment().first();
         }
 
-        if (payment && (payment.raw.name === 'emerchantpay_checkout' || payment.raw.name === 'emerchantpay_direct')) {
+        if (payment && payment.raw.name === 'emerchantpay_checkout') {
             var emerchantpayPanel = Ext.create('Shopware.apps.EmerchantpayTransactions.view.detail.Transactions', {
                 title: 'emerchantpay Transactions',
                 record: me.record,

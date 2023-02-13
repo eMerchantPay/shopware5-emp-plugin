@@ -51,11 +51,13 @@ class Shopware_Controllers_Frontend_EmerchantpayCheckoutPayment extends Frontend
     public function payAction()
     {
         $tokenizationHelper = $this->container->get('emerchantpay.wpf_tokenization_service');
+
         // Process request
         try {
             // Load the Payment Data
             $paymentData = new PaymentData($this->Request()->getParams());
             $paymentData->setOrderBasket($this->getBasket());
+            $paymentData->setUser($this->getUser());
 
             // Log the Payment Data
             $this->logger->info('Payment Data', $this->getPaymentShortName(), $paymentData->toArray());

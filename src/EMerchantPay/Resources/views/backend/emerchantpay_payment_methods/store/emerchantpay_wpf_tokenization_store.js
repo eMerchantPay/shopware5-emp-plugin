@@ -12,7 +12,7 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.store.EmerchantpayWPFTokeni
     ],
 
     data: [
-        { option: "{s name=emerchantpay/config/wpf_tonkenization_yes}Yes{/s}", value: 'yes' },
-        { option: "{s name=emerchantpay/config/wpf_tonkenization_no}No{/s}", value: 'no' }
+        { option: '{s name="emerchantpay/config/wpf_tonkenization_yes"}Yes{/s}', value: 'yes' },
+        { option: '{s name="emerchantpay/config/wpf_tonkenization_no"}No{/s}', value: 'no' }
     ]
 });

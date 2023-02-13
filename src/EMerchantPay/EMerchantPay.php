@@ -67,23 +67,6 @@ class EMerchantPay extends Plugin
         ];
         $installer->createOrUpdate($context->getPlugin(), $options);
 
-        $options = [
-            'name' => 'emerchantpay_direct',
-            'description' => 'emerchantpay Direct',
-            'action' => 'EmerchantpayPayment',
-            'active' => 0,
-            'position' => 0,
-            'additionalDescription' =>
-                '<div><img style="padding: 10px 0 10px 0" '.
-                'src="custom/plugins/EMerchantPay/Resources/views/frontend/_public/src/img/emerchantpay_direct.png" '.
-                'alt="emerchantpay Direct"></div>' .
-                '<div>' .
-                '<b>emerchantpay Direct</b> offers a secure way to pay for your order, using <b>Credit/Debit Card</b>' .
-                '</div>'
-        ];
-
-        $installer->createOrUpdate($context->getPlugin(), $options);
-
         $this->addCustomerAttributes();
     }
 
@@ -96,6 +79,10 @@ class EMerchantPay extends Plugin
         $this->addCustomerAttributes();
         $this->addWpfTokenizationOptionDefaults();
         $this->addBankCodeOptionDefaults();
+        $this->addThreedsOptionDefaults();
+        $this->addChallengeIndicatorOptionDefaults();
+        $this->addScaExemptionOptionDefaults();
+        $this->addScaExemptionOptionAmountDefaults();
         $context->scheduleClearCache(InstallContext::CACHE_LIST_DEFAULT);
     }
 
@@ -206,17 +193,6 @@ class EMerchantPay extends Plugin
                 "VALUES ('${options}', '${optionValues}', '${method}')";
             $this->container->get('dbal_connection')->exec($sql);
         }
-
-        $directConfigs = MethodConfigs::getConfigDirectData();
-        foreach ($directConfigs as $config) {
-            $options      = $config['options'];
-            $optionValues = $config['optionValues'];
-            $method       = $config['methods'];
-
-            $sql = "INSERT IGNORE INTO emerchantpay_config_methods (options, optionValues, methods) " .
-                "VALUES ('${options}', '${optionValues}', '${method}')";
-            $this->container->get('dbal_connection')->exec($sql);
-        }
     }
 
     /**
@@ -289,6 +265,90 @@ class EMerchantPay extends Plugin
         $options           = $bankCodeConfig['options'];
         $optionValues      = $bankCodeConfig['optionValues'];
         $method            = $bankCodeConfig['methods'];
+        $sql = "INSERT IGNORE INTO emerchantpay_config_methods (options, optionValues, methods) " .
+            "VALUES ('${options}', '${optionValues}', '${method}')";
+        $this->container->get('dbal_connection')->exec($sql);
+    }
+
+    /**
+     * Add / Update checkout threeds option in Emerchantpay Database Tables
+     */
+    private function addThreedsOptionDefaults()
+    {
+        $checkoutConfigs          = MethodConfigs::getConfigCheckoutData();
+        $threedsOptionConfigKey   = array_search(
+            'threeds_option',
+            array_column($checkoutConfigs, 'options')
+        );
+
+        $threedsOptionConfig      = $checkoutConfigs[$threedsOptionConfigKey];
+
+        $options      = $threedsOptionConfig['options'];
+        $optionValues = $threedsOptionConfig['optionValues'];
+        $method       = $threedsOptionConfig['methods'];
+        $sql = "INSERT IGNORE INTO emerchantpay_config_methods (options, optionValues, methods) " .
+            "VALUES ('${options}', '${optionValues}', '${method}')";
+        $this->container->get('dbal_connection')->exec($sql);
+    }
+
+    /**
+     * Add / Update checkout challenge indicator option in Emerchantpay Database Tables
+     */
+    private function addChallengeIndicatorOptionDefaults()
+    {
+        $checkoutConfigs          = MethodConfigs::getConfigCheckoutData();
+        $challengeIndicatorOptionConfigKey = array_search(
+            'challenge_indicator',
+            array_column($checkoutConfigs, 'options')
+        );
+
+        $challengeIndicatorOptionConfig = $checkoutConfigs[$challengeIndicatorOptionConfigKey];
+
+        $options      = $challengeIndicatorOptionConfig['options'];
+        $optionValues = $challengeIndicatorOptionConfig['optionValues'];
+        $method       = $challengeIndicatorOptionConfig['methods'];
+        $sql = "INSERT IGNORE INTO emerchantpay_config_methods (options, optionValues, methods) " .
+            "VALUES ('${options}', '${optionValues}', '${method}')";
+        $this->container->get('dbal_connection')->exec($sql);
+    }
+
+    /**
+     * Add / Update Sca Exemption option in Emerchantpay Database Tables
+     */
+    private function addScaExemptionOptionDefaults()
+    {
+        $checkoutConfigs = MethodConfigs::getConfigCheckoutData();
+        $scaExemptionOptionConfigKey = array_search(
+            'sca_exemption_option',
+            array_column($checkoutConfigs, 'options')
+        );
+
+        $scaExemptionOptionConfig = $checkoutConfigs[$scaExemptionOptionConfigKey];
+
+        $options = $scaExemptionOptionConfig['options'];
+        $optionValues = $scaExemptionOptionConfig['optionValues'];
+        $method = $scaExemptionOptionConfig['methods'];
+        $sql = "INSERT IGNORE INTO emerchantpay_config_methods (options, optionValues, methods) " .
+            "VALUES ('${options}', '${optionValues}', '${method}')";
+        $this->container->get('dbal_connection')->exec($sql);
+    }
+
+    /**
+     * Add / Update Sca Exemption amount in Emerchantpay Database Tables
+     */
+    private function addScaExemptionOptionAmountDefaults()
+    {
+        $checkoutConfigs                   = MethodConfigs::getConfigCheckoutData();
+        $scaExemptionAmountConfigKey = array_search(
+            'sca_exemption_amount',
+            array_column($checkoutConfigs, 'options')
+        );
+
+        $scaExemptionAmountConfig    = $checkoutConfigs[$scaExemptionAmountConfigKey];
+
+        $options                           = $scaExemptionAmountConfig['options'];
+        $optionValues                      = $scaExemptionAmountConfig['optionValues'];
+        $method                            = $scaExemptionAmountConfig['methods'];
         $sql = "INSERT IGNORE INTO emerchantpay_config_methods (options, optionValues, methods) " .
             "VALUES ('${options}', '${optionValues}', '${method}')";
         $this->container->get('dbal_connection')->exec($sql);

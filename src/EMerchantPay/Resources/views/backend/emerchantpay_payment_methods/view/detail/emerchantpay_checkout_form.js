@@ -21,7 +21,7 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.view.detail.EmerchantpayChe
     },
     autoSync: true,
 
-    initComponent: function() {
+    initComponent: function () {
         var me = this;
 
         this.emerchantpayFieldset = Ext.create('Ext.form.FieldSet', {
@@ -39,11 +39,11 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.view.detail.EmerchantpayChe
         me.callParent(arguments);
     },
 
-    getCheckoutItems: function() {
+    getCheckoutItems: function () {
         return [
             {
                 xtype: 'combobox',
-                fieldLabel: '{s name=emerchantpay/config/checkout/test_mode}Test Mode{/s}',
+                fieldLabel: '{s name="emerchantpay/config/checkout/test_mode"}Test Mode{/s}',
                 name: 'test_mode',
                 translatable: false,
                 store: Ext.create('Shopware.apps.EmerchantpayPaymentMethods.store.EmerchantpayTestModeStore'),
@@ -51,24 +51,24 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.view.detail.EmerchantpayChe
                 valueField: 'value',
                 value: 'no',
                 allowBlank: false
-            },
+        },
             {
                 xtype: 'textfield',
-                fieldLabel: '{s name=emerchantpay/config/checkout/username}Username{/s}',
+                fieldLabel: '{s name="emerchantpay/config/checkout/username"}Username{/s}',
                 name: 'username',
                 translatable: false,
                 allowBlank: false
-            },
+        },
             {
                 xtype: 'textfield',
-                fieldLabel: '{s name=emerchantpay/config/checkout/password}Password{/s}',
+                fieldLabel: '{s name="emerchantpay/config/checkout/password"}Password{/s}',
                 name: 'password',
                 translatable: false,
                 allowBlank: false
-            },
+        },
             {
                 xtype: 'combobox',
-                fieldLabel: '{s name=emerchantpay/config/checkout/transaction_types}Transaction Types{/s}',
+                fieldLabel: '{s name="emerchantpay/config/checkout/transaction_types"}Transaction Types{/s}',
                 name: 'transaction_types[]',
                 translatable: false,
                 store: Ext.create('Shopware.apps.EmerchantpayPaymentMethods.store.EmerchantpayCheckoutTransactionTypesStore').load(),
@@ -77,17 +77,17 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.view.detail.EmerchantpayChe
                 value: [ 'sale', 'authorize', 'sale3d', 'authorize3d' ],
                 multiSelect: true,
                 allowBlank: false
-            },
+        },
             {
                 xtype: 'combobox',
-                getSubmitValue: function(){
+                getSubmitValue: function () {
                     let value = this.getValue();
-                    if(Ext.isEmpty(value)) {
+                    if (Ext.isEmpty(value)) {
                         return '';
                     }
                     return value;
                 },
-                fieldLabel: '{s name=emerchantpay/config/checkout/bank_codes}Bank codes for Online banking{/s}',
+                fieldLabel: '{s name="emerchantpay/config/checkout/bank_codes"}Bank codes for Online banking{/s}',
                 name: 'bank_codes[]',
                 translatable: false,
                 store: Ext.create('Shopware.apps.EmerchantpayPaymentMethods.store.EmerchantpayCheckoutBankCodesStore').load(),
@@ -96,10 +96,10 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.view.detail.EmerchantpayChe
                 value: [],
                 multiSelect: true,
                 allowBlank: true
-            },
+        },
             {
                 xtype: 'combobox',
-                fieldLabel: '{s name=emerchantpay/config/checkount/checkout_language}Checkout Language{/s}',
+                fieldLabel: '{s name="emerchantpay/config/checkount/checkout_language"}Checkout Language{/s}',
                 name: 'checkout_language',
                 translatable: false,
                 store: Ext.create('Shopware.apps.EmerchantpayPaymentMethods.store.EmerchantpayCheckoutLanguagesStore').load(),
@@ -107,10 +107,10 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.view.detail.EmerchantpayChe
                 valueField: 'value',
                 value: 'en',
                 allowBlank: false
-            },
+        },
             {
                 xtype: 'combobox',
-                fieldLabel: '{s name=emerchantpay/config/checkout/wpf_tokenization}WPF Tokenization{/s}',
+                fieldLabel: '{s name="emerchantpay/config/checkout/wpf_tokenization"}WPF Tokenization{/s}',
                 name: 'wpf_tokenization',
                 translatable: false,
                 store: Ext.create('Shopware.apps.EmerchantpayPaymentMethods.store.EmerchantpayWPFTokenizationStore'),
@@ -118,12 +118,55 @@ Ext.define('Shopware.apps.EmerchantpayPaymentMethods.view.detail.EmerchantpayChe
                 valueField: 'value',
                 value: 'no',
                 allowBlank: false
-            },
+        },
+            {
+                xtype: 'combobox',
+                fieldLabel: '{s name="emerchantpay/config/checkout/threeds_option"}3DSv2{/s}',
+                name: 'threeds_option',
+                translatable: false,
+                store: Ext.create('Shopware.apps.EmerchantpayPaymentMethods.store.EmerchantpayCheckoutThreedsOptionStore'),
+                displayField: 'option',
+                valueField: 'value',
+                value: 'yes',
+                allowBlank: false
+        },
+            {
+                xtype: 'combobox',
+                fieldLabel: '{s name="emerchantpay/config/checkout/challenge_indicator"}Challenge Indicator{/s}',
+                name: 'challenge_indicator',
+                translatable: false,
+                store: Ext.create('Shopware.apps.EmerchantpayPaymentMethods.store.EmerchantpayCheckoutChallengeIndicatorOptionStore'),
+                displayField: 'option',
+                valueField: 'value',
+                value: 'no_preference',
+                allowBlank: false
+        },
+            {
+                xtype: 'combobox',
+                fieldLabel: '{s name="emerchantpay/config/checkout/sca_exemption_option"}SCA Exemption option{/s}',
+                name: 'sca_exemption_option',
+                translatable: false,
+                store: Ext.create('Shopware.apps.EmerchantpayPaymentMethods.store.EmerchantpayCheckoutScaExemptionOptionStore'),
+                displayField: 'option',
+                valueField: 'value',
+                value: 'low_risk',
+                allowBlank: false
+        },
+            {
+                xtype: 'numberfield',
+                fieldLabel: '{s name="emerchantpay/config/checkout/sca_exemption_amount"}SCA Exemption amount{/s}',
+                name: 'sca_exemption_amount',
+                translatable: false,
+                store: Ext.create('Shopware.apps.EmerchantpayPaymentMethods.store.EmerchantpayCheckoutScaExemptionAmountStore'),
+                minValue: 0,
+                value: 100,
+                allowBlank: true
+        },
             {
                 xtype: 'hiddenfield',
                 name: 'method',
                 value: 'checkout'
-            }
+        }
         ];
     }
 });

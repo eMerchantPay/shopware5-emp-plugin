@@ -74,42 +74,26 @@ class MethodConfigs
                 'options'      => 'wpf_tokenization',
                 'optionValues' => 'no',
                 'methods'      => 'checkout'
-            ]
-        ];
-    }
-
-    /**
-     * Initial Direct Method Config data settings
-     *
-     * @return array
-     */
-    public static function getConfigDirectData()
-    {
-        return [
+            ],
             [
-                'options'      => 'test_mode',
+                'options'      => 'threeds_option',
                 'optionValues' => 'yes',
-                'methods'      => 'direct'
+                'methods'      => 'checkout'
             ],
             [
-                'options'      => 'username',
-                'optionValues' => null,
-                'methods'      => 'direct'
+                'options'      => 'challenge_indicator',
+                'optionValues' => 'no_preference',
+                'methods'      => 'checkout'
             ],
             [
-                'options'      => 'password',
-                'optionValues' => null,
-                'methods'      => 'direct'
+                'options'      => 'sca_exemption_option',
+                'optionValues' => 'low_risk',
+                'methods'      => 'checkout'
             ],
             [
-                'options'      => 'token',
-                'optionValues' => null,
-                'methods'      => 'direct'
-            ],
-            [
-                'options'      => 'transaction_types',
-                'optionValues' => serialize([0 => 'sale']),
-                'methods'      => 'direct'
+                'options'      => 'sca_exemption_amount',
+                'optionValues' => 100,
+                'methods'      => 'checkout'
             ]
         ];
     }

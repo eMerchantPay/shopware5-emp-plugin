@@ -57,6 +57,7 @@ use Genesis\Exceptions\Exception;
  * @method $this setCcFullName($value)        Credit Card Full Name
  * @method $this setCcCvv($value)             Credit Cart CVV
  * @method $this setOrderBasket($value)       Shopware Basket
+ * @method $this setUser($value)              Current user
  *
  * Getters
  *
@@ -87,6 +88,7 @@ use Genesis\Exceptions\Exception;
  * @method string getCcExpiry()               Credit Card Expiry
  * @method string getCcCvv()                  Credit Cart CVV
  * @method array getOrderBasket()             Shopware Basket
+ * @method array getUser()                    Current user
  */
 class PaymentData extends DataAdapter
 {
@@ -122,7 +124,8 @@ class PaymentData extends DataAdapter
         'cc_full_name',
         'cc_expiry',
         'cc_cvv',
-        'order_basket'
+        'order_basket',
+        'user'
     ];
 
     public function getFields()
@@ -205,5 +208,23 @@ class PaymentData extends DataAdapter
     private function deepTrim($value)
     {
         return preg_replace('/[\s\t]*/', '', $value);
+    }
+
+    /**
+     * Gets items of current order
+     *
+     * @return array|mixed
+    */
+    public function getOrderItems()
+    {
+
+        $orderItems = [];
+        if (is_array($this->getOrderBasket()) &&
+            array_key_exists('content', $this->getOrderBasket())
+        ) {
+            $orderItems = $this->getOrderBasket()['content'];
+        }
+
+        return $orderItems;
     }
 }

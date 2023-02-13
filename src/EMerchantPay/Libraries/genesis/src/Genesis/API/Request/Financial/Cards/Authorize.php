@@ -1,5 +1,5 @@
 <?php
-/*
+/**
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
@@ -18,12 +18,16 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
+ * @author      emerchantpay
+ * @copyright   Copyright (C) 2015-2023 emerchantpay Ltd.
  * @license     http://opensource.org/licenses/MIT The MIT License
  */
 
 namespace Genesis\API\Request\Financial\Cards;
 
 use Genesis\API\Traits\Request\Financial\Business\BusinessAttributes;
+use Genesis\API\Traits\Request\Financial\Cards\Recurring\ManagedRecurringAttributes;
+use Genesis\API\Traits\Request\Financial\Cards\Recurring\RecurringTypeAttributes;
 use Genesis\API\Traits\Request\Financial\UcofAttributes;
 use Genesis\API\Traits\Request\Financial\CryptoAttributes;
 use Genesis\API\Traits\Request\Financial\FxRateAttributes;
@@ -49,7 +53,8 @@ class Authorize extends \Genesis\API\Request\Base\Financial\Cards\CreditCard
 {
     use GamingAttributes, MotoAttributes, AddressInfoAttributes, RiskAttributes, DescriptorAttributes,
         PreauthorizationAttributes, TravelDataAttributes, FxRateAttributes,
-        CryptoAttributes, BusinessAttributes, RestrictedSetter, ScaAttributes, UcofAttributes;
+        CryptoAttributes, BusinessAttributes, RestrictedSetter, ScaAttributes, UcofAttributes, RecurringTypeAttributes,
+        ManagedRecurringAttributes;
 
     /**
      * Returns the Request transaction type
@@ -80,9 +85,29 @@ class Authorize extends \Genesis\API\Request\Base\Financial\Cards\CreditCard
         parent::setRequiredFields();
 
         $requiredFieldsConditional = $this->requiredTokenizationFieldsConditional() +
-                                     $this->requiredCCFieldsConditional();
+            $this->requiredCCFieldsConditional() + $this->requiredManagedRecurringFieldsConditional() +
+            $this->requiredRecurringManagedTypeFieldConditional();
 
         $this->requiredFieldsConditional = CommonUtils::createArrayObject($requiredFieldsConditional);
+    }
+
+    /**
+     * Extend the Authorize Request Validations
+     *
+     * @return void
+     * @throws \Genesis\Exceptions\ErrorParameter
+     * @throws \Genesis\Exceptions\InvalidArgument
+     * @throws \Genesis\Exceptions\InvalidClassMethod
+     */
+    protected function checkRequirements()
+    {
+        $requiredFieldValuesConditional = $this->requiredRecurringInitialTypesFieldValuesConditional();
+
+        $this->requiredFieldValuesConditional = CommonUtils::createArrayObject(
+            $requiredFieldValuesConditional
+        );
+
+        parent::checkRequirements();
     }
 
     /**
@@ -106,7 +131,9 @@ class Authorize extends \Genesis\API\Request\Base\Financial\Cards\CreditCard
                 'travel'                    => $this->getTravelData(),
                 'fx_rate_id'                => $this->fx_rate_id,
                 'crypto'                    => $this->crypto,
-                'business_attributes'       => $this->getBusinessAttributesStructure()
+                'business_attributes'       => $this->getBusinessAttributesStructure(),
+                'recurring_type'            => $this->getRecurringType(),
+                'managed_recurring'         => $this->getManagedRecurringAttributesStructure()
             ],
             $this->getScaAttributesStructure(),
             $this->getUcofAttributesStructure()

@@ -19,7 +19,6 @@
 
 use EMerchantPay\Components\Constants\EmerchantpayPaymentAttributes;
 use EMerchantPay\Components\Methods\CheckoutService;
-use EMerchantPay\Components\Methods\DirectService;
 use EMerchantPay\Controllers\Base\FrontendPaymentAction;
 use Shopware\Components\CSRFWhitelistAware;
 
@@ -207,12 +206,6 @@ class Shopware_Controllers_Frontend_EmerchantpayReturnPayment extends FrontendPa
             $sdkService = $this->container->get('emerchantpay.genesis_checkout_service');
         }
 
-        if (array_key_exists('unique_id', $this->request->getParams())) {
-            // Load Processing SDK
-            /** @var DirectService $sdkService */
-            $sdkService = $this->container->get('emerchantpay.genesis_direct_service');
-        }
-
         if (!isset($sdkService)) {
             $errorMessage = 'Error during loading the emerchantpay Method Service';
             $this->logger->error(
@@ -251,9 +244,7 @@ class Shopware_Controllers_Frontend_EmerchantpayReturnPayment extends FrontendPa
             die();
         } catch (\Exception $e) {
             $method = 'notification';
-            if (isset($sdkService) &&
-                ($sdkService instanceof CheckoutService || $sdkService instanceof DirectService)
-            ) {
+            if (isset($sdkService) && ($sdkService instanceof CheckoutService)) {
                 $method = $sdkService->getMethod();
             }
 
