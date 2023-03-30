@@ -106,7 +106,7 @@ trait RecurringTypeAttributes
         return [
             'recurring_type' => [
                 Types::MANAGED => [
-                    'managed_recurring_period'
+                    'managed_recurring_mode'
                 ]
             ]
         ];

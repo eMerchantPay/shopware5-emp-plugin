@@ -7,7 +7,7 @@ Requirements
 ------------
 
 * Shopware 5 (Tested up to: __5.7.16__)
-* [GenesisPHP v1.21.4](https://github.com/GenesisGateway/genesis_php/releases/tag/1.21.4)
+* [GenesisPHP v1.21.6](https://github.com/GenesisGateway/genesis_php/releases/tag/1.21.6)
 * PCI-certified server in order to use ```emerchantpay Direct```
 
 GenesisPHP Requirements
@@ -53,11 +53,6 @@ When uninstalling, a message will appear asking if the plug-in data needs to be 
 
 Supported Transactions
 ---------------------
-* ```emerchantpay Direct``` Payment Method
-	* __Authorize__
-	* __Authorize (3D-Secure)__
-	* __Sale__
-	* __Sale (3D-Secure)__
 
 * ```emerchantpay Checkout``` Payment Method
   * __Alternative Payment Methods__
@@ -105,6 +100,7 @@ Supported Transactions
     * __SDD Sale__
   * __Online Banking Payments__
     * __Banco do Brasil__
+    * __Bancontact__
     * __Bancomer__
     * __Bradesco__
     * __Davivienda__

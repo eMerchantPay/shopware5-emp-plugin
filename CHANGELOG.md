@@ -1,5 +1,10 @@
 Change Log
 ---------------------
+__1.2.1__
+-----
+* Added Bancontact Bank code to Online banking transaction type
+* Updated Genesis PHP library to version 1.21.6
+
 __1.2.0__
 -----
 * Added support for 3DSv2 params via the emerchantpay Checkout method

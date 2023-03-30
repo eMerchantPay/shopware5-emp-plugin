@@ -161,6 +161,7 @@ class Types
 
     /**
      * TrustPay is a real-time bank transfer payment service, which is widely used in the Czech Republic and Slovakia.
+     * @deprecated since 1.21.5 - the TrustPay API was deprecated by Genesis
      */
     const TRUSTPAY = 'trustpay';
 
@@ -982,7 +983,6 @@ class Types
             self::TARJETA_SHOPPING,
             self::TCS,
             self::TRUSTLY_SALE,
-            self::TRUSTPAY,
             self::UPI,
             self::WEBMONEY,
             self::WEBPAY,
@@ -1102,6 +1102,7 @@ class Types
             self::MY_BANK,
             self::NEOSURF,
             self::OXXO,
+            self::ONLINE_BANKING_PAYIN,
             self::P24,
             self::PAGO_FACIL,
             self::PARTIAL_REVERSAL,
@@ -1307,6 +1308,7 @@ class Types
             self::SANTANDER_CASH,
             self::SURTIMAX,
             self::TRUSTLY_WITHDRAWAL,
+            self::TRUSTPAY,
             self::ZIMPLER
         ];
 

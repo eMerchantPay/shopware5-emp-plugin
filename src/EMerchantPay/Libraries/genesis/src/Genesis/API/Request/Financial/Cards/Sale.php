@@ -27,6 +27,7 @@ namespace Genesis\API\Request\Financial\Cards;
 
 use Genesis\API\Traits\Request\Financial\Business\BusinessAttributes;
 use Genesis\API\Traits\Request\Financial\Cards\Recurring\ManagedRecurringAttributes;
+use Genesis\API\Traits\Request\Financial\Cards\Recurring\RecurringCategoryAttributes;
 use Genesis\API\Traits\Request\Financial\Cards\Recurring\RecurringTypeAttributes;
 use Genesis\API\Traits\Request\Financial\UcofAttributes;
 use Genesis\API\Traits\Request\Financial\CryptoAttributes;
@@ -55,7 +56,7 @@ class Sale extends \Genesis\API\Request\Base\Financial\Cards\CreditCard
     use GamingAttributes, MotoAttributes, AddressInfoAttributes, RiskAttributes, DescriptorAttributes,
         ReferenceAttributes, TravelDataAttributes, FxRateAttributes, CryptoAttributes,
         BusinessAttributes, RestrictedSetter, ScaAttributes, UcofAttributes, RecurringTypeAttributes,
-        ManagedRecurringAttributes;
+        ManagedRecurringAttributes, RecurringCategoryAttributes;
 
     /**
      * Returns the Request transaction type
@@ -67,13 +68,19 @@ class Sale extends \Genesis\API\Request\Base\Financial\Cards\CreditCard
     }
 
     /**
-     * Transaction Request with zero amount is allowed
+     * Return the required parameters keys which values could evaluate as empty
+     * Example value:
+     * array(
+     *     'class_property' => 'request_structure_key'
+     * )
      *
-     * @return bool
+     * @return array
      */
-    protected function allowedZeroAmount()
+    protected function allowedEmptyNotNullFields()
     {
-        return true;
+        return array(
+            'amount' => static::REQUEST_KEY_AMOUNT
+        );
     }
 
     /**
@@ -138,7 +145,8 @@ class Sale extends \Genesis\API\Request\Base\Financial\Cards\CreditCard
                 'crypto'                    => $this->crypto,
                 'business_attributes'       => $this->getBusinessAttributesStructure(),
                 'recurring_type'            => $this->getRecurringType(),
-                'managed_recurring'         => $this->getManagedRecurringAttributesStructure()
+                'managed_recurring'         => $this->getManagedRecurringAttributesStructure(),
+                'recurring_category'        => $this->recurring_category
             ],
             $this->getScaAttributesStructure(),
             $this->getUcofAttributesStructure()

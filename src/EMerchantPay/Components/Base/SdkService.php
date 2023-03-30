@@ -691,6 +691,7 @@ abstract class SdkService
     {
         return [
             Banks::CPI => 'Interac Combined Pay-in',
+            Banks::BCT => 'Bancontact',
         ];
     }
 }

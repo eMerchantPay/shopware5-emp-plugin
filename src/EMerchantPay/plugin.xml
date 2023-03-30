@@ -5,7 +5,7 @@
     <label lang="en">emerchantpay Payment</label>
     <label lang="de">emerchantpay Payment</label>
 
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <copyright>(c) emerchantpay Ltd.</copyright>
     <license>GNU</license>
     <link>https://www.emerchantpay.com</link>
@@ -62,6 +62,18 @@
         </table>
         ]]>
     </description>
+
+    <changelog version="1.2.1">
+        <changes lang="en">
+            <![CDATA[
+            <p><b>Features</b>:</p>
+            <div><ul>
+                <li>- Added Bancontact Bank code to Online banking transaction type</li>
+                <li>- Updated Genesis PHP library to version 1.21.6</li>
+            </ul></div>
+            ]]>
+        </changes>
+    </changelog>
 
     <changelog version="1.2.0">
         <changes lang="en">
