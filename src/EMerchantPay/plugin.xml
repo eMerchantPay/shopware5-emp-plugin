@@ -5,7 +5,7 @@
     <label lang="en">emerchantpay Payment</label>
     <label lang="de">emerchantpay Payment</label>
 
-    <version>1.2.1</version>
+    <version>1.2.2</version>
     <copyright>(c) emerchantpay Ltd.</copyright>
     <license>GNU</license>
     <link>https://www.emerchantpay.com</link>
@@ -62,6 +62,17 @@
         </table>
         ]]>
     </description>
+
+    <changelog version="1.2.2">
+        <changes lang="en">
+            <![CDATA[
+            <p><b>Features</b>:</p>
+            <div><ul>
+                <li>- emerchantpay Gateway Module for Shopware 5 will no longer receive new updates</li>
+            </ul></div>
+            ]]>
+        </changes>
+    </changelog>
 
     <changelog version="1.2.1">
         <changes lang="en">

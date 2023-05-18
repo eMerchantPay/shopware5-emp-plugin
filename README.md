@@ -1,3 +1,6 @@
+\*CAUTION\* The **emerchantpay Gateway Module Plugin for Shopware 5** is deprecated and no longer will receive updates. Upgrade your store with [Shopware 6](https://github.com/shopware/platform/releases/latest) and use [**emerchantpay Gateway Module Plugin for Shopware 6**](https://github.com/eMerchantPay/shopware6-emp-plugin)
+=============================
+
 emerchantpay Gateway Module for Shopware 5
 =============================
 

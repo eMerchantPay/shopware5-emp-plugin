@@ -1,5 +1,9 @@
 Change Log
 ---------------------
+__1.2.2__
+-----
+* Added deprecation description inside the Readme. The Shopware 5 plugin will no longer receive new updates.
+
 __1.2.1__
 -----
 * Added Bancontact Bank code to Online banking transaction type
